@@ -43,7 +43,7 @@ Primary links:
 | Context size | PASS | Core is 1.3% above the original word count and remains well below the 5,000-word limit; detailed rules still load conditionally from one-level references and the increase repaired measured critical omissions |
 | Real-workbook artifact execution | BLOCKED | The mandatory spreadsheet runtime's `load_workspace_dependencies` capability is absent; runtime rules forbid guessing, installing, or substituting another authoring library |
 | Independent review | PASS | `safety-coverage-v26-final` and `eval-integrity-publication-v26-final` independently accepted the unchanged v26 hash with no material defect |
-| Publication | BLOCKED | Exact GitHub repository, visibility, license, included evaluation evidence, and human publication review remain unspecified |
+| Publication | PASS | Published to the public MIT-licensed `HenryBranchAdams/engineer-spreadsheets` repository; remote `main` was verified against the local commit and intended tracked-file inventory |
 
 ## Fine-tuning findings repaired
 
@@ -73,4 +73,4 @@ Primary links:
 
 ## Terminal rule
 
-Terminal local outcome: **ACCEPTED WITH AN EXPLICIT ARTIFACT-LANE BLOCKER.** Two fresh read-only reviews accepted the exact v26 hash. Public or private GitHub publication additionally requires confirmation of the exact repository, visibility, license, included evidence, and acceptance of the explicitly blocked real-workbook lane.
+Terminal outcome: **ACCEPTED AND PUBLISHED WITH AN EXPLICIT ARTIFACT-LANE BLOCKER.** Two fresh read-only reviews accepted the exact v26 hash. The accepted skill package and reproducible evaluation assets are published at <https://github.com/HenryBranchAdams/engineer-spreadsheets>; the unavailable real-workbook runtime lane remains disclosed and was not represented as passing.

@@ -70,9 +70,11 @@ ruby evaluation/engineer-spreadsheets/scripts/lab.rb static-evidence \
 
 Set `EVAL_MODEL` to pin an evaluation model, `EVAL_CONCURRENCY` to control parallelism, `EVAL_TIMEOUT_SECONDS` to change process timeouts, `COMPARE_REPEATS` to change the default three blind judgments per case, `CODEX_HOME` to locate the standard validator, or `SKILL_VALIDATOR_PATH` to provide its exact path.
 
-## Accepted local candidate
+## Published accepted candidate
 
 The current sealed package is bound to tree SHA-256 `322dc96a80c7d85796885bad8e6c037604be594bfc91f883ad4a0beed1e747f6`. V26 passed 49 of 49 behavior expectations, 60 of 60 repeated routing trials, 27 of 27 file-isolated blind baseline judgments with zero regression votes, static validation, the official validator, deterministic fixtures, and two fresh independent acceptance reviews.
+
+The accepted package and its reproducible evaluation assets are published at <https://github.com/HenryBranchAdams/engineer-spreadsheets>.
 
 The real-workbook artifact lane remains explicitly blocked in this environment because the mandatory spreadsheet runtime dependency loader was unavailable. Response and decision evaluations do not substitute for target-engine workbook execution. See [the acceptance manifest](evaluation/engineer-spreadsheets/ACCEPTANCE.md) and [evaluation protocol](evaluation/engineer-spreadsheets/EVAL_PROTOCOL.md) for the exact evidence boundary.
 
