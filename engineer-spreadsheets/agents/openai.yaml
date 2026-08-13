@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spreadsheet Engineering"
+  short_description: "Build, audit, and verify exceptional workbooks"
+  default_prompt: "Use $engineer-spreadsheets to create or edit this workbook with formula, fidelity, and visual verification."

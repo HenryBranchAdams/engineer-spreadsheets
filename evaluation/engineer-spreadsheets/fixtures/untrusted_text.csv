@@ -1,0 +1,7 @@
+ticket_id,submitted_text,canonical_original
+T-001,"=2+3","=2+3"
+T-002,"+SUM(1,2)","+SUM(1,2)"
+T-003,"-1+2","-1+2"
+T-004,"@SUM(1,2)","@SUM(1,2)"
+T-005,"safe text","safe text"
+T-006," leading space"," leading space"

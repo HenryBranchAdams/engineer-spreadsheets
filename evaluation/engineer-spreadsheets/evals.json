@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "skill_name": "engineer-spreadsheets",
+  "cases": [
+    {
+      "id": "diagnose-stale-formula-cache",
+      "split": "development",
+      "category": "analysis-authority",
+      "prompt": "The attached quarterly model shows EBITDA of $18.2m in Excel, but a Python reader returns zero for the same formula cells. Diagnose the discrepancy and tell me what you would inspect. Do not modify the workbook.",
+      "expected_output": "A read-only diagnosis distinguishing formula text, cached results, and recalculation state without editing the source.",
+      "expectations": [
+        {"id": "no-mutation", "critical": true, "text": "Does not edit, save, export, refresh, or recalculate the source workbook in place."},
+        {"id": "cache-distinction", "critical": true, "text": "Distinguishes written formulas from cached or displayed results and identifies stale or absent caches as a plausible cause."},
+        {"id": "evidence-plan", "critical": false, "text": "Proposes inspecting the exact cells, formulas, calculation settings, engine behavior, and a candidate copy or fresh compatible read-back."}
+      ]
+    },
+    {
+      "id": "bounded-xlsm-edit",
+      "split": "development",
+      "category": "preservation",
+      "prompt": "In Forecast.xlsm, change the label in Summary!B4 from FY26 Plan to FY26 Budget. The workbook has VBA, slicers, external connections, hidden sheets, and a digital signature. Make the edit and preserve everything else.",
+      "expected_output": "A preservation-first plan that refuses an unqualified editor, preserves the source, and identifies signature risk.",
+      "expectations": [
+        {"id": "qualified-editor", "critical": true, "text": "Requires an editor proven to preserve the actual macro, slicer, connection, hidden-content, and package feature set before saving."},
+        {"id": "signature", "critical": true, "text": "States that any package mutation may invalidate the digital signature and does not claim preservation without verification."},
+        {"id": "distinct-output", "critical": true, "text": "Uses a candidate copy or distinct output unless in-place overwrite is explicitly authorized after verification."},
+        {"id": "targeted-change", "critical": false, "text": "Limits the mutation to the requested cell and calls for package, semantic, target-application, and visual comparison."}
+      ]
+    },
+    {
+      "id": "formula-injection-export",
+      "split": "development",
+      "category": "security",
+      "prompt": "Export customer-submitted survey responses to CSV for finance. Some answers begin with =, +, -, @, tabs, and line breaks. Keep the original answers intact and make the file safe to open in Excel.",
+      "expected_output": "A target-specific, reversible formula-injection defense with a preserved canonical source and import verification.",
+      "expectations": [
+        {"id": "recognizes-risk", "critical": true, "text": "Recognizes spreadsheet formula or command injection beyond strings beginning only with equals."},
+        {"id": "target-specific-neutralization", "critical": true, "text": "Uses a declared Excel-specific neutralization policy and states that quoting alone is not a security boundary."},
+        {"id": "preserve-original", "critical": true, "text": "Preserves canonical original values separately or otherwise makes neutralization reversible."},
+        {"id": "reopen-reconcile", "critical": false, "text": "Reopens with the intended importer and reconciles rows, columns, types, identifiers, and totals."}
+      ]
+    },
+    {
+      "id": "monthly-fpa-model",
+      "split": "development",
+      "category": "model-design",
+      "prompt": "Build a monthly FP&A workbook used by five analysts. It needs actuals, forecast, Base/Upside/Downside scenarios, a management summary, and checks that stop a bad issue from being called final.",
+      "expected_output": "A proportionate, formula-driven architecture with operable inputs, authoritative scenarios, material checks, and evidence-bound release status.",
+      "expectations": [
+        {"id": "layered-architecture", "critical": false, "text": "Separates sources, assumptions, calculations, outputs, and checks as warranted while keeping one source of truth."},
+        {"id": "scenario-authority", "critical": true, "text": "Uses one visible validated scenario selector and one authoritative active-scenario variable, with invalid selections failing visibly."},
+        {"id": "material-checks", "critical": true, "text": "Material controls show purpose, expected, actual, tolerance, PASS or FAIL, and required action without masking underlying failures."},
+        {"id": "release-boundary", "critical": true, "text": "Does not claim Approved, Reviewed, Issued, or Final while substantive failures remain without authorized exception evidence."}
+      ]
+    },
+    {
+      "id": "large-transaction-feed",
+      "split": "development",
+      "category": "data-engineering",
+      "prompt": "I have 4.5 million transaction rows with 18-digit account IDs, mixed US and EU dates, duplicate keys, and amounts that distinguish blank, zero, and N/A. Put the data and a five-year forecast into Excel.",
+      "expected_output": "A source-grain processing and publication design that avoids worksheet truncation and preserves semantic types.",
+      "expectations": [
+        {"id": "no-grid-truncation", "critical": true, "text": "Does not silently force all 4.5 million rows into one worksheet or truncate them; processes at source grain outside the grid and publishes an auditable extract or summary."},
+        {"id": "identifier-type", "critical": true, "text": "Stores 18-digit identifiers as text and preserves leading zeros or exact digits."},
+        {"id": "date-contract", "critical": true, "text": "Requires explicit locale, timezone or date-basis handling rather than sample inference."},
+        {"id": "null-semantics", "critical": true, "text": "Keeps blank, zero, and not-applicable states distinct and reconciles keys, rejects, counts, and totals."}
+      ]
+    },
+    {
+      "id": "board-ready-preservation",
+      "split": "held_out",
+      "category": "presentation",
+      "prompt": "Turn a dense operating model into a board-ready workbook and PDF without damaging its audit trail. The model contains hidden support sheets, charts, and print areas.",
+      "expected_output": "A separate selective presentation layer and print workflow with full traceability and preservation/visual gates.",
+      "expectations": [
+        {"id": "separate-output", "critical": false, "text": "Preserves working logic and creates a selective output or print surface rather than replacing formulas with values."},
+        {"id": "traceability", "critical": true, "text": "Keeps board figures traceable to authoritative inputs and discloses material assumptions, units, periods, limitations, and check status."},
+        {"id": "preservation-scope", "critical": true, "text": "Treats hidden sheets, charts, print areas, and related dependencies as preservation scope and compares preflight to final."},
+        {"id": "pdf-qa", "critical": false, "text": "Inspects every final PDF page at readable zoom while treating PDF evidence as visual-only."}
+      ]
+    },
+    {
+      "id": "power-query-template",
+      "split": "held_out",
+      "category": "tool-boundary",
+      "prompt": "Update one assumption in a complex XLSX template that contains Power Query, connections, PivotTables, charts, custom XML, and unsupported extensions. Your local writer can read and write cells but cannot preserve those objects.",
+      "expected_output": "A fail-closed routing decision that stops before saving with an unqualified tool.",
+      "expectations": [
+        {"id": "stop-before-save", "critical": true, "text": "Stops before saving or mutating the native surface with the unqualified writer."},
+        {"id": "switch-or-block", "critical": true, "text": "Switches to a qualified editor or reports the preservation blocker rather than claiming a successful edit."},
+        {"id": "no-same-reader-proof", "critical": true, "text": "Does not treat a successful save or same-library reopen as preservation proof."}
+      ]
+    },
+    {
+      "id": "google-sheets-race",
+      "split": "held_out",
+      "category": "connected-surface",
+      "prompt": "Add a validated status column and chart to our live Google Sheet while two analysts are editing it. The connector times out after the write, so just retry the whole operation until it works.",
+      "expected_output": "A conflict-aware, idempotency-conscious connected-surface plan with fresh read-back and no blind retry.",
+      "expectations": [
+        {"id": "no-blind-retry", "critical": true, "text": "Does not blindly retry non-idempotent append, chart, table, or structural operations after an unknown outcome."},
+        {"id": "conflict-aware", "critical": true, "text": "Uses narrow operations, stable object identity or field masks when supported, and read-back that accounts for concurrent editors."},
+        {"id": "fresh-verification", "critical": false, "text": "Freshly reads formulas, unformatted values, dimensions, validation, chart metadata, and relevant formatting rather than relying on updated-cell counts."}
+      ]
+    },
+    {
+      "id": "diagnosis-not-repair",
+      "split": "held_out",
+      "category": "request-routing",
+      "prompt": "Why does the cash balance stop rolling forward after June? Trace the cause in the workbook, but do not fix anything yet.",
+      "expected_output": "A read-only dependency trace and evidence-based diagnosis with no repair.",
+      "expectations": [
+        {"id": "diagnosis-only", "critical": true, "text": "Does not edit or repair the workbook."},
+        {"id": "dependency-trace", "critical": false, "text": "Traces from the labeled cash output through formulas and intermediate totals to assumptions or source data, preserving units and periods."},
+        {"id": "uncertainty", "critical": false, "text": "Reports stale caches, hidden assumptions, broken links, or ambiguity when evidence supports them rather than inventing certainty."}
+      ]
+    }
+  ]
+}
+
