@@ -35,14 +35,14 @@ Primary links:
 |---|---|---|
 | Package and fixtures | PASS | `lab.rb verify` binds the package hash, validates metadata/reference architecture, and executes the adversarial fixture assertions |
 | Official validator | PASS | Current `quick_validate.py` executed through an isolated `uv` environment with PyYAML |
-| Development and held-out behavior | PENDING | Predecessor v25 passed 48/49 expectations with every critical expectation; v26 must be rerun because its skill hash changed |
-| Routing | PENDING | Predecessor v25 passed 60/60; v26 must be rebound to a fresh trigger report under the hardened definition-hash verifier |
-| Baseline comparison | PENDING | Predecessor v25 passed 32/33 shared development expectations versus baseline 31/33; v26 requires a fresh exact-hash run |
-| Blind comparison | PENDING | Predecessor v25 passed 27/27 judgments; v26 requires fresh file-isolated, prompt-injection-resistant comparisons |
+| Development and held-out behavior | PASS | V26 passed 49/49 expectations across all 13 cases; every critical development and held-out expectation passed |
+| Routing | PASS | V26 passed 60/60 decisions across 20 cases repeated three times; recall 1.0 and specificity 1.0; the stored report passes the hardened verifier |
+| Baseline comparison | PASS | On the identical nine-case development set, v26 passed 33/33 expectations versus sealed baseline 31/33 under the same complete case definitions and grader contract |
+| Blind comparison | PASS | Twenty-seven file-isolated judgments across nine shared development cases; zero regression votes and zero material candidate regressions |
 | Evidence integrity | PASS (harness) | Harness now binds complete behavior and trigger definitions, persists trigger prompts, isolates untrusted comparison responses from judge instructions, checks staged and unstaged diffs, and rehashes reviewed skills after review |
 | Context size | PASS | Core is 1.3% above the original word count and remains well below the 5,000-word limit; detailed rules still load conditionally from one-level references and the increase repaired measured critical omissions |
 | Real-workbook artifact execution | BLOCKED | The mandatory spreadsheet runtime's `load_workspace_dependencies` capability is absent; runtime rules forbid guessing, installing, or substituting another authoring library |
-| Independent review | PENDING | Fresh reviews must accept v26 after its regenerated evidence passes |
+| Independent review | PASS | `safety-coverage-v26-final` and `eval-integrity-publication-v26-final` independently accepted the unchanged v26 hash with no material defect |
 | Publication | BLOCKED | Exact GitHub repository, visibility, license, included evaluation evidence, and human publication review remain unspecified |
 
 ## Fine-tuning findings repaired
@@ -73,4 +73,4 @@ Primary links:
 
 ## Terminal rule
 
-Checkpoint outcome: **STRUCTURALLY SEALED; BEHAVIORAL REQUALIFICATION PENDING, WITH AN EXPLICIT ARTIFACT-LANE BLOCKER.** Public or private GitHub publication additionally requires passing the fresh v26 evidence cycle and confirming the exact repository, visibility, license, included evidence, and acceptance of the explicitly blocked real-workbook lane.
+Terminal local outcome: **ACCEPTED WITH AN EXPLICIT ARTIFACT-LANE BLOCKER.** Two fresh read-only reviews accepted the exact v26 hash. Public or private GitHub publication additionally requires confirmation of the exact repository, visibility, license, included evidence, and acceptance of the explicitly blocked real-workbook lane.

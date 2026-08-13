@@ -72,6 +72,6 @@ Set `EVAL_MODEL` to pin an evaluation model, `EVAL_CONCURRENCY` to control paral
 
 ## Accepted local candidate
 
-The current structurally sealed package is bound to tree SHA-256 `322dc96a80c7d85796885bad8e6c037604be594bfc91f883ad4a0beed1e747f6`. Its predecessor v25 passed every critical behavior expectation (48/49 total, 97.96%), 60 of 60 repeated routing trials, and 27 of 27 blind baseline judgments. V26 repairs two creation-scope defects found during pre-publication review and therefore awaits a fresh exact-hash behavior, routing, comparison, and independent-review cycle under the hardened evidence harness.
+The current sealed package is bound to tree SHA-256 `322dc96a80c7d85796885bad8e6c037604be594bfc91f883ad4a0beed1e747f6`. V26 passed 49 of 49 behavior expectations, 60 of 60 repeated routing trials, 27 of 27 file-isolated blind baseline judgments with zero regression votes, static validation, the official validator, deterministic fixtures, and two fresh independent acceptance reviews.
 
 The real-workbook artifact lane remains explicitly blocked in this environment because the mandatory spreadsheet runtime dependency loader was unavailable. Response and decision evaluations do not substitute for target-engine workbook execution. See [the acceptance manifest](evaluation/engineer-spreadsheets/ACCEPTANCE.md) and [evaluation protocol](evaluation/engineer-spreadsheets/EVAL_PROTOCOL.md) for the exact evidence boundary.
