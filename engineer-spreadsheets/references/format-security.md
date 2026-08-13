@@ -17,6 +17,7 @@ Never execute workbook code to prove that it was preserved. If functional macro 
 Before editing an existing workbook, inventory charts, shapes, images, comments, legacy VML, names, tables, validations, conditional formats, pivots, slicers, macros, external links, connections, Power Query, custom XML, signatures, and embedded objects.
 
 - Prefer an editor with qualified pass-through behavior for every material unsupported part.
+- Naming the target application or the editor most likely to preserve a feature is not qualification. For a complex preservation edit, first perform a separate no-op round trip on a disposable copy using the intended editor and settings: open, save, reopen, and compare package parts, relationships, modeled objects, formulas and values, target-application warnings, and rendered surfaces. Apply the intended edit to another copy only if that qualification passes; otherwise stop. Treat expected signature invalidation as a separately authorized exception or re-signing workflow, never as pass-through preservation.
 - Reject a read-write path that reconstructs only a fixed subset when omitted parts must survive.
 - For preservation-sensitive file edits, write to a new file, compare package-part and relationship manifests, semantically compare modeled features, hash opaque high-risk parts when appropriate, and reopen in the target application without a repair warning.
 - Do not infer file preservation from a same-library reload or a successful save.
@@ -39,8 +40,10 @@ A conversion command with a zero exit code proves neither recalculation nor fide
 - Use `RAW` for literal values. Use `USER_ENTERED` only when formula or locale-aware parsing is intended, then read back the parsed formulas and unformatted values.
 - Batch related operations when the active connector supports a trustworthy batch contract. Google guarantees atomic validation/application for one `spreadsheets.batchUpdate` request; do not extend that guarantee to every batch-shaped connector call or a sequence of requests.
 - Prefer one mutation owner, stable object IDs, narrow field masks, and conflict-aware read-back. Other humans or automations can race with read-compare-write.
-- Do not blindly retry append, table creation, or other non-idempotent operations after an unknown outcome.
-- After mutation, freshly read formula text, unformatted results, dimensions, and relevant table, chart, validation, or formatting metadata. Updated-cell counts are acknowledgements only.
+- Identify the exact spreadsheet, stable sheet ID, and target table or range before mutation. Prefer a brief edit window under the mutation owner; when that is unavailable, compare the intended target immediately before mutation and abort on a conflict. Capture chart and other object IDs returned or discovered after creation rather than assuming they can be assigned by the caller.
+- Before structural creation, search by stable identity and semantics for an existing matching column, validation, summary, table, or chart; reuse or repair it rather than creating a duplicate. Immediately before mutation, freshly compare target headers, dimensions, protections, source ranges, and object anchors with preflight; abort and re-plan on any conflicting change.
+- Do not blindly retry append, column, table, chart, or other structural creation after an unknown outcome, and do not call creation idempotent merely because the payload is unchanged. Retry creation only when fresh read-back proves no matching object exists; otherwise repair the identified existing object or stop on ambiguity.
+- Before mutation, declare the applicable postconditions for the intended cells, ranges, and objects: formulas or literal values, unformatted results, dimensions, stable object identity, sources and placement, validation, and formatting; also require existing row alignment and unrelated formulas, formatting, and objects to remain unchanged. After mutation, freshly read every applicable field and scan for formula errors; updated-cell counts are acknowledgements only. For summaries and charts, reconcile formulas and calculated results, verify source, labels, placement, and formatting, and inspect rendered appearance and overlap when supported; metadata alone is insufficient.
 
 ## Treat CSV and TSV as text formats
 
@@ -48,9 +51,9 @@ Delimited files have one table and no workbook formulas-as-model, styles, charts
 
 - Preserve or explicitly choose delimiter, quoting, encoding, byte-order mark, line endings, header rules, decimal convention, and date convention.
 - Preserve leading zeros, long identifiers, exact decimals, null states, and timezone information through an explicit schema.
-- A field beginning with `=`, `+`, `-`, `@`, tab, carriage return, or line feed can become a formula or command when opened in a spreadsheet application. Quoting alone is not a security boundary.
-- For untrusted outward-facing exports, neutralize formula-like values for the declared target application and retain the canonical original separately when required. No neutralization rule is universal across all spreadsheet applications.
-- Reopen with the intended importer and settings, then reconcile rows, columns, headers, types, identifiers, and totals.
+- A field whose first actual character is `=`, `+`, `-`, `@`, tab, carriage return, or line feed can become a formula or command when opened in a spreadsheet application. Quoting alone is not a security boundary. Inspect that first character exactly; an internal tab or line break does not by itself justify changing an otherwise safe value.
+- For untrusted outward-facing exports, neutralize formula-like values for the declared target application and retain the canonical original separately when required. Link every presentation row to its canonical record using a stable ID and, when material, a transformation version and checksum so reversal and byte comparison are unambiguous. Keep the authoritative raw data outside the presentation CSV when an encoded recovery field could exceed destination limits, expose sensitive content, or invite use of the wrong column; preflight encoded as well as original lengths. No neutralization rule is universal across all spreadsheet applications.
+- Reopen with the intended importer and settings, then reconcile rows, columns, headers, types, identifiers, and totals against the canonical source. Source-to-export checks alone are insufficient. If the declared destination workflow cannot be tested, block the safety claim and release.
 
 ## Do not confuse convenience with security
 
@@ -59,3 +62,4 @@ Delimited files have one table and no workbook formulas-as-model, styles, charts
 - Data validation guides entry but paste, fill, import, formulas, scripts, and APIs can bypass it. Independently validate final values.
 - Remove hidden content, links, comments, properties, connections, code, or custom XML only after reviewing whether it is required functionality.
 - For sensitive file delivery, inspect a copy for hidden cells and sheets, names, comments, links, connections, properties, embedded code, and package attachments before making a privacy claim. For connected or native surfaces, inspect the selected target read-only and do not duplicate it without explicit authority.
+- After an authorized cleanup, repeat the complete sensitive-residue inventory on the candidate, reconcile every intended removal and retained dependency, and block delivery on any unadjudicated residue.

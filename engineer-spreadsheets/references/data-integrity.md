@@ -25,7 +25,7 @@ Preflight destination limits before writing. Modern Excel allows 1,048,576 rows 
 For each material import, record or retain:
 
 - source identity, version or as-of time, checksum when useful, encoding, delimiter, locale, timezone, date basis, row count, column manifest, and declared schema;
-- source and imported counts, distinct primary keys, duplicate keys, null keys, authoritative totals, rejected rows, and parse failures;
+- source, accepted, and rejected or quarantined counts with `source = accepted + rejected/quarantined`, distinct primary keys, duplicate keys, null keys, authoritative totals, and parse failures; keep the complete reject set in a scalable artifact when a worksheet exception report could exceed application limits;
 - the transformation version and deterministic ordering rule.
 
 Treat duplicate headers, blank headers, hidden whitespace, Unicode confusables, inconsistent signs, mixed units, and sentinel strings as explicit normalization decisions. Preserve original values or a reject record when normalization is not reversible.

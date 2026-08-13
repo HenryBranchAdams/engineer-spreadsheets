@@ -35,7 +35,7 @@ A candidate may replace the baseline only when all apply:
 
 - package and fixture checks pass;
 - every critical development and held-out expectation passes;
-- trigger precision and recall are each at least 0.90, with zero false positives on explicit exclusion-precedence cases;
+- trigger specificity and recall are each at least 0.90, with zero false positives on explicit exclusion-precedence cases;
 - noncritical behavioral pass rate is at least 0.90 and no lower than the baseline;
 - no material regression appears in blind comparison, context size, runtime routing, or preservation behavior;
 - artifact lanes pass in their required target engines, or publication explicitly states that those lanes are blocked and does not claim them;
@@ -53,7 +53,8 @@ ruby evaluation/engineer-spreadsheets/scripts/lab.rb run snapshots/baseline-v1/p
 ruby evaluation/engineer-spreadsheets/scripts/lab.rb grade evaluation/engineer-spreadsheets/runs/<run-id>
 ruby evaluation/engineer-spreadsheets/scripts/lab.rb report evaluation/engineer-spreadsheets/runs/<run-id>
 ruby evaluation/engineer-spreadsheets/scripts/lab.rb triggers engineer-spreadsheets 3
+ruby evaluation/engineer-spreadsheets/scripts/lab.rb compare <baseline-run> <candidate-run>
+ruby evaluation/engineer-spreadsheets/scripts/lab.rb review <sealed-skill> <review-id> <evidence>...
 ```
 
 The runner uses the installed `codex` CLI in an isolated, read-only, ephemeral process. Set `EVAL_MODEL` only when pinning a model is intentional; set `EVAL_TIMEOUT_SECONDS` to change the default 300-second case timeout.
-

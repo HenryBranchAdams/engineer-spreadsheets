@@ -28,7 +28,7 @@
       ]
     },
     {
-      "id": "formula-injection-export",
+      "id": "formula-injection-export-v2",
       "split": "development",
       "category": "security",
       "prompt": "Export customer-submitted survey responses to CSV for finance. Some answers begin with =, +, -, @, tabs, and line breaks. Keep the original answers intact and make the file safe to open in Excel.",
@@ -37,7 +37,7 @@
         {"id": "recognizes-risk", "critical": true, "text": "Recognizes spreadsheet formula or command injection beyond strings beginning only with equals."},
         {"id": "target-specific-neutralization", "critical": true, "text": "Uses a declared Excel-specific neutralization policy and states that quoting alone is not a security boundary."},
         {"id": "preserve-original", "critical": true, "text": "Preserves canonical original values separately or otherwise makes neutralization reversible."},
-        {"id": "reopen-reconcile", "critical": false, "text": "Reopens with the intended importer and reconciles rows, columns, types, identifiers, and totals."}
+        {"id": "reopen-reconcile", "critical": false, "text": "Reopens with the intended importer and reconciles applicable rows, columns or headers, imported text types, identifiers, and hashes or control totals when meaningful."}
       ]
     },
     {
@@ -67,8 +67,8 @@
       ]
     },
     {
-      "id": "board-ready-preservation",
-      "split": "held_out",
+      "id": "board-ready-preservation-v2",
+      "split": "development",
       "category": "presentation",
       "prompt": "Turn a dense operating model into a board-ready workbook and PDF without damaging its audit trail. The model contains hidden support sheets, charts, and print areas.",
       "expected_output": "A separate selective presentation layer and print workflow with full traceability and preservation/visual gates.",
@@ -76,12 +76,12 @@
         {"id": "separate-output", "critical": false, "text": "Preserves working logic and creates a selective output or print surface rather than replacing formulas with values."},
         {"id": "traceability", "critical": true, "text": "Keeps board figures traceable to authoritative inputs and discloses material assumptions, units, periods, limitations, and check status."},
         {"id": "preservation-scope", "critical": true, "text": "Treats hidden sheets, charts, print areas, and related dependencies as preservation scope and compares preflight to final."},
-        {"id": "pdf-qa", "critical": false, "text": "Inspects every final PDF page at readable zoom while treating PDF evidence as visual-only."}
+        {"id": "pdf-qa", "critical": false, "text": "Inspects every final PDF page at readable zoom, verifies workbook calculation and lineage separately, and does not use the PDF as proof of hidden or formula state."}
       ]
     },
     {
       "id": "power-query-template",
-      "split": "held_out",
+      "split": "development",
       "category": "tool-boundary",
       "prompt": "Update one assumption in a complex XLSX template that contains Power Query, connections, PivotTables, charts, custom XML, and unsupported extensions. Your local writer can read and write cells but cannot preserve those objects.",
       "expected_output": "A fail-closed routing decision that stops before saving with an unqualified tool.",
@@ -92,29 +92,81 @@
       ]
     },
     {
-      "id": "google-sheets-race",
-      "split": "held_out",
+      "id": "google-sheets-race-v2",
+      "split": "development",
       "category": "connected-surface",
       "prompt": "Add a validated status column and chart to our live Google Sheet while two analysts are editing it. The connector times out after the write, so just retry the whole operation until it works.",
       "expected_output": "A conflict-aware, idempotency-conscious connected-surface plan with fresh read-back and no blind retry.",
       "expectations": [
         {"id": "no-blind-retry", "critical": true, "text": "Does not blindly retry non-idempotent append, chart, table, or structural operations after an unknown outcome."},
         {"id": "conflict-aware", "critical": true, "text": "Uses narrow operations, stable object identity or field masks when supported, and read-back that accounts for concurrent editors."},
-        {"id": "fresh-verification", "critical": false, "text": "Freshly reads formulas, unformatted values, dimensions, validation, chart metadata, and relevant formatting rather than relying on updated-cell counts."}
+        {"id": "fresh-cell-readback", "critical": false, "text": "Freshly reads applicable target headers, formulas or literal values, results, dimensions, and validation rather than relying on updated-cell counts."},
+        {"id": "fresh-object-readback", "critical": false, "text": "Freshly verifies the intended chart's stable identity, source, labels, placement, and relevant formatting or rendered appearance."}
       ]
     },
     {
-      "id": "diagnosis-not-repair",
-      "split": "held_out",
+      "id": "diagnosis-not-repair-v2",
+      "split": "development",
       "category": "request-routing",
       "prompt": "Why does the cash balance stop rolling forward after June? Trace the cause in the workbook, but do not fix anything yet.",
       "expected_output": "A read-only dependency trace and evidence-based diagnosis with no repair.",
       "expectations": [
         {"id": "diagnosis-only", "critical": true, "text": "Does not edit or repair the workbook."},
-        {"id": "dependency-trace", "critical": false, "text": "Traces from the labeled cash output through formulas and intermediate totals to assumptions or source data, preserving units and periods."},
+        {"id": "dependency-trace", "critical": false, "text": "If the workbook is available, traces from the labeled cash output through formulas and intermediate totals to assumptions or source data; if unavailable, states that limitation and gives a precise read-only trace plan without fabricating a cause."},
         {"id": "uncertainty", "critical": false, "text": "Reports stale caches, hidden assumptions, broken links, or ambiguity when evidence supports them rather than inventing certainty."}
+      ]
+    },
+    {
+      "id": "surgical-table-extension",
+      "split": "held_out",
+      "category": "structural-edit",
+      "prompt": "Add July actuals to the existing Excel operating model. The row feeds a Table, named ranges, a PivotTable, two charts, conditional formatting, validation, and a print area. Match the established workbook and do not disturb anything else.",
+      "expected_output": "A minimal structural edit that extends every affected dependency, preserves the governing template, and verifies unrelated workbook behavior.",
+      "expectations": [
+        {"id": "local-pattern", "critical": true, "text": "Renders and inspects neighboring rows, formulas, styles, totals, and objects before choosing the extension pattern."},
+        {"id": "dependency-update", "critical": true, "text": "Updates all affected Table, formula, name, PivotTable source, chart series, conditional-format, validation, and print-area dependencies rather than only inserting values."},
+        {"id": "minimal-change", "critical": true, "text": "Limits the edit to the smallest coherent range and avoids broad autofit, restyling, or normalization."},
+        {"id": "round-trip-verify", "critical": false, "text": "Recalculates in a compatible engine, independently reopens, reconciles July totals, compares preservation inventory, and visually reviews affected surfaces."}
+      ]
+    },
+    {
+      "id": "volatile-recalc-proof",
+      "split": "held_out",
+      "category": "calculation",
+      "prompt": "Prove that this Excel forecast is correct after recalculation. It uses TODAY, NOW, RAND, OFFSET, iterative calculations, an external link, and a custom function that is unavailable on your machine.",
+      "expected_output": "An honest calculation-verification boundary that separates deterministic controls, volatile invariants, unavailable dependencies, and target-engine proof.",
+      "expectations": [
+        {"id": "no-false-proof", "critical": true, "text": "Does not claim the forecast fully verified when a custom function or required external dependency is unavailable."},
+        {"id": "volatile-policy", "critical": true, "text": "Records calculation settings, date/time context, iteration, volatile functions, and tests declared tolerances or invariants rather than byte equality."},
+        {"id": "safe-recalc", "critical": true, "text": "Uses a candidate copy, blocks code and external refresh absent authority, and asks before recalculation that could execute code, refresh data, or materially change volatile outputs."},
+        {"id": "independent-check", "critical": false, "text": "Independently recomputes important deterministic outputs and requires the target or declared compatible engine for supported semantics."}
+      ]
+    },
+    {
+      "id": "privacy-cleanup-delivery",
+      "split": "held_out",
+      "category": "privacy",
+      "prompt": "Clean this workbook before sending it to a customer. Remove private leftovers, but preserve everything required for the report to work. It may contain hidden sheets, names, comments, links, connections, properties, macros, and embedded objects.",
+      "expected_output": "A copy-based, evidence-bound privacy inspection that distinguishes required functionality from removable sensitive residue.",
+      "expectations": [
+        {"id": "copy-only", "critical": true, "text": "Uses a candidate copy and does not destructively clean the authoritative source."},
+        {"id": "full-inventory", "critical": true, "text": "Inspects hidden and very-hidden content, names, comments, links, connections, properties, code, custom parts, and embedded objects before making a privacy claim."},
+        {"id": "adjudicated-removal", "critical": true, "text": "Removes content only after determining whether it is required functionality and reports residual or blocked risks rather than deleting blindly."},
+        {"id": "post-clean-proof", "critical": false, "text": "Reopens in the target application, compares required functionality and package inventory, scans again for sensitive residue, and visually reviews every visible sheet."}
+      ]
+    },
+    {
+      "id": "accessible-shared-dashboard",
+      "split": "held_out",
+      "category": "accessibility",
+      "prompt": "Make this shared Excel dashboard usable for keyboard-only and low-vision colleagues. It has input cells, red/green status indicators, charts, hyperlinks, and a dense summary sheet.",
+      "expected_output": "An accessible, operable redesign with redundant cues, alternative data, target checker review, and preserved model behavior.",
+      "expectations": [
+        {"id": "input-cues", "critical": true, "text": "Makes editable inputs recognizable before selection using labels or units plus redundant fill or boundary cues, validation where useful, and unlocked state when protection is used."},
+        {"id": "not-color-only", "critical": true, "text": "Pairs red or green status with text, symbols, borders, or placement and does not rely on color alone."},
+        {"id": "alternative-access", "critical": true, "text": "Provides meaningful chart labels or alt text and accessible conclusions or underlying data, meaningful hyperlink text, headers, reading order, and keyboard navigation."},
+        {"id": "checker-and-manual", "critical": false, "text": "Runs the target application's accessibility checker when available and manually inspects its findings and the rendered user path rather than treating the checker as proof."}
       ]
     }
   ]
 }
-

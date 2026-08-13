@@ -1,67 +1,76 @@
 # Engineer Spreadsheets Acceptance
 
-## Objective
+## Objective and seal
 
-Keep the always-loaded skill concise through progressive disclosure while preserving spreadsheet correctness, preservation, security, routing, and verification behavior. Incorporate the strongest professional-formatting, input-control, print, accessibility, and release-governance guidance from the user-supplied `professional-excel-formatting-gold-standard (1).md` without imposing a universal house style or inventing organizational policy.
+Fine-tune `engineer-spreadsheets` against realistic spreadsheet-agent decisions without weakening authority, preservation, formula integrity, privacy, security, or honest verification boundaries.
 
-## Authority and boundaries
+- Sealed candidate: `candidate-v26`
+- Skill tree SHA-256: `322dc96a80c7d85796885bad8e6c037604be594bfc91f883ad4a0beed1e747f6`
+- Core size: 189 lines, 3,073 words, 22,148 bytes
+- Original core: 192 lines, 2,991 words, 20,863 bytes
+- Package: one core file, three directly routed references, and UI metadata
 
-- Mutation owner: primary Codex agent.
-- Independent verification: separate read-only agents after the candidate is sealed.
-- Local files may be created or changed only inside this workspace.
-- The supplied formatting document is design input, not independent authority for a user's template, policy, accessibility obligation, or approval state.
-- One disposable native Google Sheet is authorized only through the required local-XLSX import path; no existing Google file may be touched.
-- Live Microsoft Excel may be exercised only when the request explicitly targets an open or connected workbook and all setup gates pass. This optimization request does not authorize live workbook mutation.
-- Do not install dependencies, execute workbook code, refresh external data, overwrite user files, publish, or delete external data.
+The working `engineer-spreadsheets/` package is byte-identical to the sealed snapshot.
 
-## Context measurements
+## Research basis
 
-| Artifact | Lines | Words | Bytes |
-|---|---:|---:|---:|
-| Original core | 192 | 2,991 | 20,863 |
-| Prior optimized core | 171 | 2,272 | 16,351 |
-| Current core | 180 | 2,428 | 17,556 |
-| Conditional professional-formatting reference | 51 | 941 | 6,598 |
+The protocol combines current guidance from:
 
-The current core remains 18.8% smaller by words and 15.9% smaller by bytes than the original. The detailed professional guidance loads only for its stated conditions.
+- Anthropic's public skill-creator workflow: realistic cases, baseline-versus-skill runs, separate grading, blind comparison, trigger cases, and iterative improvement without overfitting;
+- OpenAI Evals and grader guidance: versioned eval data, task-specific graders, reproducible runs, and auditable results;
+- Promptfoo's public evaluation architecture: declarative cases, assertions, repeatable execution, and regression comparison;
+- DeepWiki-generated orientation for those exact public repositories, treated as navigation rather than authority and checked against current direct sources.
 
-## Acceptance manifest
+Primary links:
 
-| Gate | Required evidence | Status |
+- <https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md>
+- <https://github.com/anthropics/skills/blob/main/skills/skill-creator/references/schemas.md>
+- <https://github.com/openai/evals>
+- <https://platform.openai.com/docs/api-reference/graders?api-mode=chat>
+- <https://github.com/promptfoo/promptfoo>
+
+## Acceptance evidence
+
+| Gate | Result | Evidence |
 |---|---|---|
-| Core context | Core remains materially smaller than the original; detailed guidance is conditionally loaded | PASS — 180 lines, 2,428 words, 17,556 bytes; professional detail is in one directly linked reference |
-| Package shape | Frontmatter, name, description, folder, and UI metadata satisfy the official validator contract | PASS — exact rules reproduced with Ruby YAML: 21-character name, 947-character description, permitted keys only, folder/name match, 46-character UI description, and default prompt invokes `$engineer-spreadsheets` |
-| Reference architecture | Every reference is directly and conditionally linked from core, exists, and does not link to another reference | PASS — exactly three one-level references: data integrity, format/security, and professional formatting/print |
-| Professional judgment | Skill covers proportional risk, working-versus-presentation architecture, recognizable inputs, explicit checks, scenarios, structures, annotations, accessibility, print/PDF QA, and evidence-bound release status | PASS — rules preserve template precedence, avoid fixed house-style mandates, and distinguish workbook labels from approval evidence |
-| Formatting decisions | Realistic prompts exercise the new judgment without leaking expected answers to responding agents | PASS — all 10 cases passed across blind agent batches; the revised one-off input case and three narrow structure/name/annotation trigger probes also passed after repair; raw responses are task-history evidence rather than packaged transcripts |
-| Trigger precision | Positive, negative, and routing prompts match expected activation and execution surfaces | PASS — all 24 outcomes in `TRIGGER_CASES.md` were independently reviewed against metadata and active-runtime routing |
-| Safety retention | Authorization, privacy, active-content, formula-injection, protection, preservation, and honest-block rules remain mandatory | PASS — core retains these rules and references add format-specific detail only under sufficient triggers |
-| Local workbook | Mandated runtime builds and validates a typed workbook with formulas, chart, controls, renders, export, reopen, and reconciliation | BLOCKED — `load_workspace_dependencies` is absent from the callable tool surface; runtime rules forbid dependency guessing, installation, or alternate writers |
-| Adversarial data | Messy identifiers, timezones, null states, duplicate headers, long digits, and formula-like text avoid silent coercion or injection | PARTIAL — deterministic fixture assertions pass for all 12 risk signals; end-to-end workbook proof shares the runtime blocker |
-| Google Sheets | Verified local workbook imports through native conversion, then metadata, formulas, and rendering are checked without touching existing files | BLOCKED — native import requires the verified local `.xlsx` prerequisite; no Google file was created or changed |
-| Live Excel routing | Generic file work stays local; only explicit open/connected Excel work activates live control | PASS — regression cases preserve this routing; this request did not authorize a live workbook mutation |
-| Independent verification | Two fresh read-only reviewers accept the sealed candidate and evidence | PASS — both fresh full-package reviews accepted core SHA-256 `da11216538c7833173a0d104819e5486708b917fe932f4368ab38f7d8180faa6` with no material findings |
+| Package and fixtures | PASS | `lab.rb verify` binds the package hash, validates metadata/reference architecture, and executes the adversarial fixture assertions |
+| Official validator | PASS | Current `quick_validate.py` executed through an isolated `uv` environment with PyYAML |
+| Development and held-out behavior | PENDING | Predecessor v25 passed 48/49 expectations with every critical expectation; v26 must be rerun because its skill hash changed |
+| Routing | PENDING | Predecessor v25 passed 60/60; v26 must be rebound to a fresh trigger report under the hardened definition-hash verifier |
+| Baseline comparison | PENDING | Predecessor v25 passed 32/33 shared development expectations versus baseline 31/33; v26 requires a fresh exact-hash run |
+| Blind comparison | PENDING | Predecessor v25 passed 27/27 judgments; v26 requires fresh file-isolated, prompt-injection-resistant comparisons |
+| Evidence integrity | PASS (harness) | Harness now binds complete behavior and trigger definitions, persists trigger prompts, isolates untrusted comparison responses from judge instructions, checks staged and unstaged diffs, and rehashes reviewed skills after review |
+| Context size | PASS | Core is 1.3% above the original word count and remains well below the 5,000-word limit; detailed rules still load conditionally from one-level references and the increase repaired measured critical omissions |
+| Real-workbook artifact execution | BLOCKED | The mandatory spreadsheet runtime's `load_workspace_dependencies` capability is absent; runtime rules forbid guessing, installing, or substituting another authoring library |
+| Independent review | PENDING | Fresh reviews must accept v26 after its regenerated evidence passes |
+| Publication | BLOCKED | Exact GitHub repository, visibility, license, included evaluation evidence, and human publication review remain unspecified |
 
-## Known environment observations
+## Fine-tuning findings repaired
 
-- The official `quick_validate.py` cannot start because its Python environment lacks `PyYAML`. Its exact contract was reproduced without installing packages; this remains a validator-environment limitation.
-- The required `load_workspace_dependencies` capability must be present before any `@oai/artifact-tool` workbook build. Its absence blocks workbook and downstream Google-import execution and does not authorize another writer or dependency-path guessing.
+- Required a proven no-op preservation round trip before complex workbook edits.
+- Made formula-cache diagnosis distinguish written formulas, cached values, and target-engine recalculation.
+- Added destination read-back and reconciliation for CSV/TSV and connected spreadsheet changes.
+- Kept canonical raw survey data outside Excel-facing CSVs when encoded recovery columns could exceed cell limits or create disclosure/use hazards.
+- Made material controls binary and fail-closed; advisory states cannot silently satisfy release gates.
+- Prevented workbook formulas or free-form selectors from assigning authoritative approval or issue status.
+- Required formal outputs to expose material assumptions, limitations, units, period, and check state.
+- Required PDF/image review to remain visual evidence rather than proof of workbook formula or hidden-content state.
+- Required rendering and neighboring-pattern inspection before structural extensions.
+- Added a distinct authorization checkpoint immediately before recalculation that can materially change volatile outputs.
+- Required fresh cell and object read-back after connected-surface mutations and prohibited blind retry after unknown outcomes.
+- Required shared/live mutations to bind the exact target and stable identities, prefer one mutation owner or an edit window, distinguish genuine atomic platform operations from batch-shaped connector calls, preserve unrelated work, and verify bypassable validation inputs.
+- Required exact source-to-accepted-plus-rejected reconciliation and scalable exception storage for large imports.
+- Required diagnosis plans to identify the first broken dependency with its cell, formula, period, and failure type.
+- Required accessible inputs to combine labels and units, a visible fill or boundary, validation where useful, and unlocked state under protection.
+- Required explicit CSV-quoting disclosure and complete hidden/very-hidden sensitive-residue inventories.
 
-## Executed checks
+## Known limitations
 
-- `quick_validate.py engineer-spreadsheets`: blocked before validation with `ModuleNotFoundError: No module named 'yaml'`.
-- Exact official validator constraints reproduced with the system Ruby YAML parser: PASS.
-- Direct-reference existence and one-level/no-nested-reference assertion: PASS.
-- `FORMATTING_CASES.md`: 10/10 decision cases passed in blind batches; the revised one-off input case and three narrow reference-trigger probes passed after repair.
-- `TRIGGER_CASES.md`: all 24 expected outcomes independently reviewed as consistent with metadata and runtime routing.
-- `ruby evaluation/engineer-spreadsheets/verify_fixtures.rb`: PASS — six rows, one duplicate header, five long and five leading-zero identifiers, one duplicate-key group, one invalid timestamp, distinct blank/zero/not-applicable amounts, one locale-sensitive amount, four formula-sensitive strings, and preserved canonical originals.
-- Unfinished-content marker scan across the package and evaluation files: PASS — no matches.
-- A first fresh review found that general editable inputs and narrow Table/name/annotation requests were not guaranteed to load the right guidance. Both defects were repaired before resealing; prior acceptances do not count for this candidate.
-- Two fresh, independent, read-only full-package reviews of the repaired seal: ACCEPT with no material findings.
-- Current core SHA-256: `da11216538c7833173a0d104819e5486708b917fe932f4368ab38f7d8180faa6`.
-
-The original and prior-core counts came from earlier `wc -l -w -c` observations in this task. No redundant baseline copy was retained, so the current counts and arithmetic reproduce locally while older counts remain task-history evidence.
+- The behavior lane evaluates response decisions and plans in isolated read-only sessions; it does not substitute for target-engine workbook execution.
+- The routing lane is explicitly a description-routing classifier, not instrumentation of a host product's internal dispatcher.
+- One noncritical response omitted an explicit isolated candidate-copy or compatible-engine read-back when diagnosing a likely stale formula cache. The sealed skill still requires source-preserving recalculation/read-back and every critical calculation boundary passed.
+- Generated raw runs and sealed snapshots remain local and ignored. The repository contains the protocol, cases, fixtures, and harness needed to reproduce them.
 
 ## Terminal rule
 
-Terminal outcome: **ACCEPTED WITH EXPLICIT EXECUTION BLOCKERS.** All locally executable gates pass, and two fresh independent reviewers accepted the sealed skill. Real-workbook and downstream Google-Sheet execution remain blocked by the absent mandatory dependency loader and are not reported as passed.
+Checkpoint outcome: **STRUCTURALLY SEALED; BEHAVIORAL REQUALIFICATION PENDING, WITH AN EXPLICIT ARTIFACT-LANE BLOCKER.** Public or private GitHub publication additionally requires passing the fresh v26 evidence cycle and confirming the exact repository, visibility, license, included evidence, and acceptance of the explicitly blocked real-workbook lane.

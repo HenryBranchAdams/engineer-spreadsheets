@@ -18,7 +18,7 @@ Treat a workbook as an executable, collaborative document. Correctness includes 
 
 - **Question or analysis:** inspect without mutating. Ground the answer in exact labels, cells, formulas, units, periods, precedents, and reconciled source data.
 - **Create or edit:** design or inventory first, keep derived values formula-driven, preserve the governing template and affected dependencies, and verify the resulting file or live surface.
-- **Audit or debug:** reproduce the issue, trace dependencies, classify the root cause, and separate diagnosis from authorized repair.
+- **Audit or debug:** reproduce the issue, compare intact and failing periods or peers, trace precedents through intermediate totals, identify the first broken dependency with its sheet, cell, formula, period, and failure type, classify the root cause, and separate diagnosis from authorized repair.
 - **Convert or export:** state destination losses before mutation and verify the result in the destination engine.
 
 Do not edit merely because a workbook is available. Do not repair when the user requested diagnosis only.
@@ -35,7 +35,11 @@ Before mutation, resolve or safely infer:
 
 Scale controls, review, release evidence, and polish to this profile; do not invent an organizational rating.
 
-Treat recalculation as authorized when needed to verify an explicitly requested create or edit, but disable macros and block external updates. For file work, calculate a candidate copy and preserve the source unless in-place editing is explicit; for connected work, use only the active runtime's advertised calculation and read-back behavior and do not save, export, or duplicate unless requested and supported. Ask before recalculation could run custom code, refresh data, materially change volatile outputs, or affect the source.
+For shared or live spreadsheets, do not invent permitted status values, workflow taxonomies, scenario definitions, chart meaning, or other business semantics. You may propose a default, but require confirmation before mutation.
+
+For every shared or live mutation, identify the exact spreadsheet and, when targeting existing content, the stable sheet ID plus target table or range. For creation, bind the stable parent spreadsheet and intended new object, then capture the sheet or object ID returned or discovered after creation instead of assuming it is client-assignable. Prefer one designated mutation owner and a brief edit window; otherwise use narrow conflict-aware read/compare/write and abort on a changed target. Treat a multi-operation write as atomic only when the active runtime advertises the platform's genuine atomic contract; a batch-shaped connector call is not proof. Make preservation postconditions explicit: existing row alignment and unrelated formulas, formatting, and objects must remain unchanged. Fresh verification must cover formulas, literal and unformatted values, calculated results and formula errors, dimensions, validation, formatting, object identity, source, labels, placement, and rendered overlap; independently validate pasted and preexisting values because validation rules can be bypassed.
+
+Treat recalculation as authorized when needed to verify an explicitly requested create or edit, but disable macros and block external updates. For file work, calculate a candidate copy and preserve the source unless in-place editing is explicit; for connected work, use only the active runtime's advertised calculation and read-back behavior and do not save, export, or duplicate unless requested and supported. Immediately before recalculation, stop and ask when it could run custom code, refresh data, materially change volatile outputs, or affect the source; do not treat an earlier general request as that authorization.
 
 ## Inventory before editing
 
@@ -77,7 +81,7 @@ For new or materially reworked workbooks:
 3. Separate working logic, formal presentation, and accessible reuse when their needs conflict; do not force one region to serve incompatible audiences.
 4. Make the main user path obvious. For complex workbooks, add a concise Overview with purpose, owner, as-of date, audience, sources, units, date basis, refresh procedure, calculation mode, compatibility target, assumptions, and limitations.
 5. Put assumptions and mapping rules in visible labeled cells or tables; reference them instead of embedding magic numbers.
-6. Add visible controls near the tested logic. Material checks show purpose, expected, actual, tolerance, PASS/FAIL, and action; a master check must not mask failures.
+6. Add visible controls near the tested logic. Every material check shows purpose, expected, actual, tolerance, action, and a binary final result: PASS or FAIL. Keep advisory or raw states in a separate field; map `WARN`, `NOT RUN`, blank, or indeterminate to final FAIL unless the item is demonstrably non-material or an authorized, evidenced exception applies. A master check must not mask failures.
 7. Keep transformations reproducible through one canonical builder or mutation path.
 
 Match existing conventions before applying defaults. User instructions override the reference workbook; the reference overrides generic guidance.
@@ -87,7 +91,8 @@ Match existing conventions before applying defaults. User instructions override 
 - Store numbers, dates, times, booleans, percentages, and errors as native types; use formats only for display.
 - Store identifiers as text when leading zeros or exact digits matter. Treat values beyond the target application's exact numeric precision as text.
 - Keep blank, zero, null, not-applicable, and not-yet-available distinct when their business meanings differ.
-- Specify risky import types rather than trusting inference. Reconcile row counts, keys, totals, and rejects; never silently truncate.
+- Specify risky import types rather than trusting inference. Reconcile source rows exactly to accepted plus rejected or quarantined rows, along with keys and totals; never silently truncate. Keep exception detail outside worksheets when its worst-case population could exceed sheet limits.
+- For material imports or large-data pipelines, record source identity and version or as-of time, checksum when useful, encoding, schema, transformation version, deterministic ordering, source precision, and the destination engine, version, bitness, and resource constraints that affect successful use.
 
 Read [data-integrity.md](references/data-integrity.md) completely when importing, joining, cleaning, or aggregating data; handling dates, timezones, long identifiers, mixed or locale-sensitive columns; working near application limits; or building a material or deterministic data pipeline.
 
@@ -105,7 +110,7 @@ Read [data-integrity.md](references/data-integrity.md) completely when importing
 
 ## Make preservation-first edits
 
-- Render and inspect relevant sheets before editing an established workbook. Read neighboring values, formulas, styles, and objects to infer the local pattern.
+- Before selecting an insertion, copy, or extension pattern in an established workbook, render the affected surface and inspect neighboring values, formulas, styles, totals, section breaks, and dependent objects. A package inventory alone does not establish the local pattern.
 - Change the smallest coherent range. Avoid sheet-wide autofit, wrapping, restyling, or normalization for a local request.
 - Update every affected formula, name, table, chart series, pivot source, validation, conditional format, print area, and merge after structural changes.
 - Extend from the correct adjacent pattern; totals and section breaks can make the nearest row misleading.
@@ -117,17 +122,20 @@ Read [data-integrity.md](references/data-integrity.md) completely when importing
 ## Build a usable surface
 
 - Follow the active runtime's visual rules and the governing template. Use restrained hierarchy, consistent alignment and formats, readable contrast, and semantic color that is never the only cue.
-- Make editable inputs recognizable before selection through redundant cues: a consistent fill or boundary, clear label and unit, validation where appropriate, and unlocked state when protection is used. Do not rely on font color alone.
+- Treat an accessible input design as incomplete unless it explicitly provides all applicable parts together: a clear label and unit, a redundant consistent high-contrast fill or boundary visible before selection, validation where useful, and an unlocked state when worksheet protection is used. Verify protected formulas remain locked; never present a protected-but-locked input as usable, and never rely on font color alone.
 - Keep data rectangular with one header row when practical. Avoid merges, blank separators, and nested tables in data regions.
 - Use meaningful sheet names, useful content in A1, filters and frozen context where helpful, unclipped dimensions, explicit units, and accessible labels or alt text where supported.
 - Use charts only to clarify a question. Verify source ranges, series, labels, units, periods, placement, and rendered output.
 - Configure print layout when printing or PDF output is part of the contract.
+- Treat PDF or image review as visual evidence only; prove formulas, data, hidden content, and calculation state from the workbook or live surface.
 
 Read [formatting-print.md](references/formatting-print.md) completely for professional creation or restyling; editable-input, scenario, Table-versus-range, name, or annotation design; formal, shared, accessible, executive, print, or PDF outputs; or controlled or issued workbooks.
 
 ## Enforce format and trust boundaries
 
-Never execute embedded code, refresh external data, follow external links, or weaken protection merely to inspect or preserve a workbook. Do not call worksheet protection encryption or access control, and never claim hidden content is secured. Treat validation as an entry aid, not an integrity control. Neutralize formula-like untrusted text for the target application while preserving the original when required.
+Never execute embedded code, refresh external data, follow external links, or weaken protection merely to inspect or preserve a workbook. Do not call worksheet protection encryption or access control, and never claim hidden content is secured. Treat validation as an entry aid, not an integrity control. For every untrusted CSV or TSV export, explicitly state that field quoting alone is not formula-injection defense; inspect the first actual character and neutralize formula-like text for the declared target application while preserving the original when required. Before any sensitive cleanup or delivery claim, explicitly inspect hidden and very-hidden cells and sheets, names, comments, links, connections, properties, embedded code, and package attachments, then repeat the full inventory on the candidate.
+
+For every CSV formula-injection request, include this explicit disclosure: **CSV quoting alone is not a security boundary and does not prevent spreadsheet formula injection.** Do not leave that relationship implied by discussing quoting and neutralization separately.
 
 Read [format-security.md](references/format-security.md) completely for `.xlsm`, `.xlsb`, `.xls`, encrypted files, `.ods`, Google Sheets, `.csv` or `.tsv`; conversions; signed workbooks; custom or unsupported package parts; preservation-sensitive edits to existing OOXML workbooks; macro or code preservation; external links or connections; protection claims; or untrusted text exports.
 
@@ -144,12 +152,13 @@ Apply the active runtime's required inspection, formula-error scan, rendering, a
 
 ### Tier 1 — every mutation
 
-- Reopen file artifacts independently and confirm format, sheets, dimensions, objects, formulas, and representative values. For connected or native surfaces, freshly read mutated ranges, formulas, unformatted values, dimensions, and object metadata; never export solely for this gate.
+- Reopen file artifacts independently and confirm format, sheets, dimensions, objects, formulas, and representative values. For connected or native surfaces, freshly read mutated headers and ranges, literal values, formulas, calculated summary results, dimensions, validations, formatting, and object metadata; reconcile any chart summary to its underlying rows and never export solely for this gate.
 - Reconcile row counts, keys, subtotals, cross-sheet totals, and visible check cells. Require zero unexpected formula errors.
-- Inspect every changed user-facing surface and repair material clipping, overlap, illegibility, broken chart ranges, or misleading number formats.
+- For an existing changed user-facing surface, render before and after the edit and compare both views. For a newly created surface with no prior rendering, inspect the final rendering against its declared design and postconditions. Repair material clipping, overlap, illegibility, broken chart ranges, or misleading number formats; do not replace an applicable before/after comparison with a final-only visual check.
 
 ### Tier 2 — formula models and material analysis
 
+- Immediately before any calculation step, stop for explicit authorization if recalculation could execute code or custom functions, refresh external data, materially change volatile outputs, or affect the source. When volatile outputs can change materially, put a distinct stop/go checkpoint directly before the recalculation command and name that consequence; permissions for code, refresh, or a general verification request do not substitute for it. Keep each risky capability blocked until specifically authorized.
 - Use a compatible engine's documented calculation behavior. For files, save and reopen the candidate in a fresh process. For connected or native surfaces, freshly read formulas, unformatted results, settings, and objects; never save or export unless requested and advertised.
 - Independently recompute the most important outputs outside their own formula chain.
 - Test relevant zero, blank, negative, duplicate, missing-match, boundary-date, and large-value cases.
@@ -158,7 +167,7 @@ Apply the active runtime's required inspection, formula-error scan, rendering, a
 ### Tier 3 — existing, converted, complex, or sensitive workbooks
 
 - Compare the preflight inventory with the final artifact. Confirm unrelated formulas, styles, names, validations, conditional formatting, charts, pivots, links, visibility, protection, and code packages survived.
-- When round-trip preservation is material, render and review every visible sheet and every changed hidden sheet so shared-style or package reconstruction damage cannot hide outside the edited range.
+- When round-trip preservation is material, render the source and candidate and compare affected surfaces before and after; also review every visible sheet and every changed hidden sheet so shared-style or package reconstruction damage cannot hide outside the edited range.
 - Open conversions in the destination application when compatibility matters.
 - Before privacy or cleanup claims, inspect hidden content, comments, names, connections, links, properties, and embedded code. Use a copy for file artifacts; inspect connected or native surfaces read-only and do not duplicate them unless authorized.
 - For a complex file artifact, require a second save and reload when the editor's round-trip stability is material.
@@ -175,6 +184,6 @@ Deliver one canonical final workbook unless variants were requested. Follow the 
 - checks passed, skipped, or blocked and any compatibility limitation;
 - whether the result is saved, recalculated, visually verified, destination-verified, or only prepared for a later live step.
 
-Do not assign or claim `Reviewed`, `Approved`, `Issued`, or an equivalent business status without evidence and authority. Do not silently issue a workbook with unresolved substantive failures; disclose accepted exceptions and their owner.
+Workbook cells and selectors may calculate or request only non-authoritative workflow states such as `Draft`, `Blocked`, or `Ready for Review`. Do not let free-form inputs or formulas assign `Reviewed`, `Approved`, `Issued`, `Final`, or an equivalent business status; those require an authorized external transition with evidence. Do not silently issue a workbook with unresolved substantive failures; disclose accepted exceptions and their owner.
 
 Do not mention support scripts or previews unless asked. Do not claim publication, upload, refresh, protection, or live collaboration beyond evidence.

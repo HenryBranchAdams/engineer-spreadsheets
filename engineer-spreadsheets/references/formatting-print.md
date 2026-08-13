@@ -7,6 +7,7 @@ Use these rules for professional user-facing workbooks, recurring inputs and con
 - Keep working sheets optimized for traceability and repeatable formulas. Create dedicated output, print, or accessible-data sheets when the audience does not need mechanics, the working layout is too dense, formal pagination or branding is required, or one model serves several audiences.
 - Keep raw and reusable data sheets to one primary rectangular region with stable unique headers. Allow multiple presentation blocks only when their boundaries and relationship are evident.
 - Match density to audience: expert working models may be compact; executive, client, public, mobile, and accessible outputs should be selective, readable, and summary-led.
+- Make formal and executive outputs show the active scenario or basis, material assumptions and limitations, units and period, source cutoff when relevant, and current check or exception status. Do not make a polished surface look more certain than the underlying model.
 - Prefer visible or grouped calculations over hidden logic. Disclose technical hidden content needed to understand, reproduce, or review an output.
 
 ## Make inputs and controls operable
@@ -29,6 +30,7 @@ Use these rules for professional user-facing workbooks, recurring inputs and con
 - Use one primary readable font, a small hierarchy of sizes, a restrained semantic palette, structural borders, and whitespace before decoration. Apply fill and color for meaning, not novelty.
 - Keep labels left-aligned, numeric values right-aligned, comparable precision consistent, units visible, and actual-versus-forecast status explicit.
 - Pair every status color with text, symbol, border, or placement. Avoid red-only negatives and ensure meaningful charts and images have labels or alt text where supported.
+- Give every material table and summary block clear, unique row and column headers. Establish and verify a logical top-to-bottom, left-to-right reading order across sheets, inputs, summaries, charts, and navigation; correct merged cells, blank obstacles, or object ordering that breaks the intended path.
 - Run the target application's accessibility checker when available and inspect its findings rather than treating execution as proof. Test meaningful hyperlink text, keyboard navigation, reading order, headers, and alternative access to chart conclusions and underlying data.
 - Follow the governing accessibility policy. When WCAG AA applies, target at least 4.5:1 contrast for ordinary text and 3:1 for large text and essential graphical elements.
 
