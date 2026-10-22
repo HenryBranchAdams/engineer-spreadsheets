@@ -1,0 +1,38 @@
+name: Package and harness validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deterministic:
+    name: Static checks and deterministic regressions
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 2
+      - uses: ruby/setup-ruby@e1bd6146574da5e0795075b5319b300edb30c5b0 # v1
+        with:
+          ruby-version: '3.2'
+      - name: Validate package, cases, and adversarial fixtures
+        run: ruby evaluation/engineer-spreadsheets/scripts/lab.rb verify
+      - name: Test evidence and subprocess safeguards
+        run: ruby evaluation/engineer-spreadsheets/tests/lab_test.rb
+      - name: Test independent workbook inspection
+        run: python3 evaluation/engineer-spreadsheets/artifacts/test_artifacts.py -v
+      - name: Check patch formatting
+        run: git diff --check HEAD^
+
+# This job does not run paid model evaluations or author workbooks. Those lanes
+# require a configured Codex account or the mandated spreadsheet runtime and
+# have their own hash-bound evidence. A green CI check does not replace them.

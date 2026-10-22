@@ -41,6 +41,14 @@ Before a join:
 
 After the join, reconcile matched and unmatched populations, output row count, duplicate expansion, and authoritative totals. Fail or surface exceptions when observed cardinality differs from the contract.
 
+## Aggregate at the correct grain
+
+- State what one row represents before summing. Separate transaction rows from subtotals and snapshots; summing repeated balances or a total alongside its components double-counts the result.
+- Derive aggregate rates from matching numerators and denominators. Overall utilization is total used capacity divided by total available capacity; an unweighted average of row percentages answers a different question. Use a weighted mean only when its weight matches the measure.
+- Keep currency, unit, period, and sign conventions consistent. Apply explicit conversion rules before combining unlike values; do not infer comparability from identical number formats.
+- Define the population: all source rows, filtered visible rows, a reporting period, or an eligible subset. Choose formulas and controls that use that same population, and expose excluded records when material.
+- Distinguish a zero denominator from a valid zero result. Use the agreed not-applicable or error state instead of silently reporting zero or suppressing an unexpected error.
+
 ## Make calculations reproducible
 
 - Sort outputs explicitly; join, group, pivot, and aggregation order is not automatically stable.

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "records": [
+    {"id": "0000123", "amount": 12.5, "date": "2026-01-01", "active": true, "note": "=1+1"},
+    {"id": "12345678901234567890", "amount": 0, "date": "2026-02-28", "active": false, "note": "+SUM(1,2)"},
+    {"id": "00000000000000000002", "amount": -3.75, "date": "2026-03-01", "active": true, "note": "@SUM(1,2)"},
+    {"id": "9007199254740993", "amount": 999.125, "date": "2026-12-31", "active": false, "note": "Ordinary text"}
+  ],
+  "narrow_edit": {"cell": "B6", "amount": 25},
+  "capacity": {
+    "minutes_per_item": 4,
+    "minutes_per_person": 1500,
+    "actual_volume": 1000,
+    "actual_minutes": 4200,
+    "states": [
+      {"id": "base", "selector": 1, "base_volume": 1200, "peak_volume": 1700},
+      {"id": "peak", "selector": 2, "base_volume": 1200, "peak_volume": 1700},
+      {"id": "zero", "selector": 1, "base_volume": 0, "peak_volume": 1700},
+      {"id": "missing-unselected", "selector": 1, "base_volume": 1200, "peak_volume": null},
+      {"id": "missing-selected", "selector": 2, "base_volume": 1200, "peak_volume": null}
+    ]
+  }
+}

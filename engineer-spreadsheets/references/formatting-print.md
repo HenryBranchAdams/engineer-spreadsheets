@@ -42,6 +42,7 @@ Use these rules for professional user-facing workbooks, recurring inputs and con
 - Use manual page breaks for meaningful sections and automatic pagination for uniform listings. Excel ignores manual breaks under `Fit to` page settings; when manual breaks are contractual, use compatible percentage scaling and inspect the final layout.
 - For long listings, show applied filters, sort order, source and extract time, row count, control total, units, and exception status when relevant.
 - Inspect every final PDF page at 100% zoom for clipping, blank or unintended pages, unreadable scaling, page order, orphaned headings or totals, repeated headers, footer consistency, grayscale meaning, hidden content, reporting date, version, and applicable accessibility or tagging requirements.
+- Reconcile material figures in the final exported pages to the verified workbook results, including their units, reporting period, active scenario, and final input state. A readable export can still contain stale results or the wrong selection; inspect the delivered export rather than an earlier preview.
 - Treat a PDF or image as visual evidence only. It does not prove formulas, hidden content, calculation state, or workbook fidelity.
 
 ## Govern controlled and issued work
