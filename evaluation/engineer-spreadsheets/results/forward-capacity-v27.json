@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "record_type": "curated_single_forward_task",
+  "skill_candidate": "candidate-v27",
+  "skill_tree_sha256": "5c4de6260278fa85e9929ea5bd5cbfe7c9aa87889213b972d05b315aff560a83",
+  "execution": "Fresh agent received the task and sealed skill without parent conversation or diagnoses; authoring used artifact-tool.",
+  "task_summary": "Create a focused editable weekly clinic capacity workbook from four supplied synthetic source rows, with live totals, unused slots, weighted utilization and a native count chart; preserve exact identifiers and source data.",
+  "source_rows": [
+    [
+      "000000000000012345",
+      "Bayou",
+      10,
+      8
+    ],
+    [
+      "000000000000000002",
+      "Oak",
+      80,
+      48
+    ],
+    [
+      "100000000000000003",
+      "Harbor",
+      25,
+      25
+    ],
+    [
+      "000000000000000004",
+      "Prairie",
+      0,
+      0
+    ]
+  ],
+  "runtime_checks": [
+    "Baseline totals reconcile to every source clinic",
+    "Overall utilization uses matching totals",
+    "Zero-capacity utilization remains not applicable",
+    "Exact clinic IDs and labels retained",
+    "All original source rows retained",
+    "Changing both weekly counts updates totals",
+    "Changing weekly counts updates unused slots",
+    "Changing weekly counts updates clinic utilization",
+    "Changing weekly counts updates headline utilization",
+    "Weekly edits leave the retained source unchanged",
+    "Missing booking input does not appear as a healthy zero",
+    "Missing row input remains unavailable",
+    "A real zero booking is distinct from a missing booking",
+    "All-zero capacity does not divide by zero",
+    "Original inputs restored after tests",
+    "Original utilization restored after tests",
+    "Native chart contains the two requested count series",
+    "Chart series bind to current editable clinic counts"
+  ],
+  "fresh_process_reload": {
+    "freshProcessReload": "PASS",
+    "sourceRows": [
+      [
+        "000000000000012345",
+        "Bayou",
+        10,
+        8
+      ],
+      [
+        "000000000000000002",
+        "Oak",
+        80,
+        48
+      ],
+      [
+        "100000000000000003",
+        "Harbor",
+        25,
+        25
+      ],
+      [
+        "000000000000000004",
+        "Prairie",
+        0,
+        0
+      ]
+    ],
+    "totals": [
+      [
+        115,
+        81,
+        34,
+        0.7043478260869566
+      ]
+    ],
+    "liveFormulas": [
+      [
+        "=IF(COUNT(C16:C19)<>ROWS(C16:C19),\"n.a.\",SUM(C16:C19))",
+        "=IF(COUNT(D16:D19)<>ROWS(D16:D19),\"n.a.\",SUM(D16:D19))",
+        "=IF(COUNT(C20:D20)<>2,\"n.a.\",C20-D20)",
+        "=IF(COUNT(C20:D20)<>2,\"n.a.\",IF(C20=0,\"n.a.\",D20/C20))"
+      ]
+    ],
+    "chartCount": 1,
+    "errorScan": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}"
+  },
+  "independent_ooxml_inspection": {
+    "independent_ooxml_inspection": "PASS",
+    "sha256": "4475c500ea2876eaa650b425675a3a1eaa66b50b83fd48ca213a6c1bac9b0ca8",
+    "file_bytes": 9114,
+    "sheets": [
+      "Capacity",
+      "Source"
+    ],
+    "retained_source_records": 4,
+    "identifiers": "Exact 18-digit source strings in both worksheets; Text format preserved",
+    "totals": [
+      115,
+      81,
+      34,
+      0.7043478260869566
+    ],
+    "formula_caches": "Present and matched expected values",
+    "formula_errors": 0,
+    "chart_count": 1,
+    "chart_ranges": [
+      [
+        "'Capacity'!$B$16:$B$19",
+        "'Capacity'!$C$16:$C$19"
+      ],
+      [
+        "'Capacity'!$B$16:$B$19",
+        "'Capacity'!$D$16:$D$19"
+      ]
+    ],
+    "chart_series_colors": [
+      "C4CFD8",
+      "2F6B9A"
+    ],
+    "input_validation": "Whole numbers >= 0 on Capacity!C16:D19",
+    "conditional_format_rules": 2,
+    "code_or_external_refresh_parts": 0
+  },
+  "workbook_sha256": "4475c500ea2876eaa650b425675a3a1eaa66b50b83fd48ca213a6c1bac9b0ca8",
+  "raw_check_sha256": {
+    "build_checks.json": "3b6263e4da0f08e8da2016c869e38a92c6dfc2a8fe50939d34c8e30f96cae7f7",
+    "reload_checks.json": "0737ac2f069f107c04973840e50acc6b502530cf39fb76672c8771822625dd4b",
+    "ooxml_checks.json": "8991ee5ea615e1b63bd2bbb3ab7859c88e99dce2dae1511ed65bff7ba4663596"
+  },
+  "overall_status": "PARTIAL",
+  "limitations": [
+    "Artifact-tool renders shorten numeric-looking text IDs despite exact text strings in XLSX. Native Excel verification not performed. LibreOfficeDev 26.8.0.0.alpha0 conversion was attempted on a disposable copy but did not complete and produced no output; the execution transport disconnected.",
+    "This is one observed task on intermediate v27, not a repeated efficacy benchmark or a final v29 score.",
+    "The records summarize assistant checks; the full workbook and execution files are not committed."
+  ]
+}

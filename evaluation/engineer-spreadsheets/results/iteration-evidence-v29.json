@@ -1,0 +1,540 @@
+{
+  "schema_version": 1,
+  "record_type": "curated_iteration_evidence",
+  "recorded_at": "2026-10-22T17:26:55.456184+00:00",
+  "base_commit": "f07305ea9dadd5267ef078f98a024e5819b7bb7b",
+  "candidate": "candidate-v29",
+  "package": {
+    "tree_sha256": "075f9881a19e03520c6188d79a9bf1510986fbafcf6f1fcfa7f952c1d0754d2f",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "sha256": "17b5e4834a218d9fed24f45e6c5d0d6494b91e89c681be363ec3501e0ad30e55"
+      },
+      {
+        "path": "agents/openai.yaml",
+        "sha256": "2e0bdce3d6189021c15d072a3396940986751970e961593f4572d2769600f09b"
+      },
+      {
+        "path": "references/data-integrity.md",
+        "sha256": "f95a5838120e723634c3079bdde67c8e8740f45eae7ea5a03f103d3edec4822b"
+      },
+      {
+        "path": "references/format-security.md",
+        "sha256": "72514e11905c625446d790bfd1bf5634138eafee9b875a6049560b043d31cde5"
+      },
+      {
+        "path": "references/formatting-print.md",
+        "sha256": "7f46572e5e655e24bc53cedbcd027f6968ac36b494f2d3802be73678b92a25c2"
+      },
+      {
+        "path": "references/testing-and-evidence.md",
+        "sha256": "e3863cf4f0822aa4205d9b694c09fb903f03a2138031be6c1a5b67fd240e12bf"
+      }
+    ]
+  },
+  "source_sha256": {
+    "evaluation/engineer-spreadsheets/scripts/lab.rb": "7a9154d276681291bcb813b4dd37d8a9f4f6f2ce3a1c7c00587bb05ae37c7811",
+    "evaluation/engineer-spreadsheets/tests/lab_test.rb": "4c0f80a9d9c8d30a9def205bb4d1f90485b3dc3161a664fbfb0b240618773d39",
+    "evaluation/engineer-spreadsheets/evals.json": "86e76219cd4dc573de53b0db25a2313501cfd9de74671f322eece11a5999c424",
+    "evaluation/engineer-spreadsheets/trigger-evals.json": "3fcb1c5652bd08b7616519e72d561a059d2155b097a944b899dc61cffa25552d",
+    "evaluation/engineer-spreadsheets/artifacts/run.py": "5760ce075f76d552b799d435e2eb6e6bbf5daf076a9518e27deb7b725b801690",
+    "evaluation/engineer-spreadsheets/artifacts/build.mjs": "2d302307f4b8ad5d06eb871c67ae005854eda7c70f25a30aa15340d6d76e3f85",
+    "evaluation/engineer-spreadsheets/artifacts/inputs.json": "f9080ffeccb41fd6ec8b63be4c0ee8aaedf8c6bba973e3f8bc07cc378f8d6083",
+    "evaluation/engineer-spreadsheets/artifacts/test_artifacts.py": "85bb466bbbaf251d0f54e6533d2a2e53c7e0b2d651b4b3ef28dd03acb300ca6d"
+  },
+  "implementation_review": "ACCEPTED",
+  "final_model_promotion": "BLOCKED",
+  "static": {
+    "package_and_fixtures": "PASS",
+    "official_validator": {
+      "status": "PASS",
+      "stdout": "Skill is valid!",
+      "script_sha256": "ee6dba90f44d37171c5a6edb8095979c54919ff6822c1a907afca2e78c48738c"
+    },
+    "sealed_snapshot_identical": true,
+    "core": {
+      "lines": 199,
+      "words": 3316,
+      "bytes": 23969,
+      "references": [
+        "references/format-security.md",
+        "references/data-integrity.md",
+        "references/formatting-print.md",
+        "references/testing-and-evidence.md"
+      ]
+    },
+    "ruby_tests": {
+      "tests": 30,
+      "assertions": 102,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "python_tests": {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0
+    },
+    "git_diff_check": "PASS"
+  },
+  "independent_reviews": [
+    {
+      "reviewer": "final_skill_acceptance",
+      "kind": "automated read-only package review",
+      "package_tree_sha256": "075f9881a19e03520c6188d79a9bf1510986fbafcf6f1fcfa7f952c1d0754d2f",
+      "decision": "ACCEPT",
+      "material_findings": []
+    },
+    {
+      "reviewer": "final_evidence_review",
+      "kind": "automated read-only package and evaluation integrity review, with independent artifact subreview",
+      "package_tree_sha256": "075f9881a19e03520c6188d79a9bf1510986fbafcf6f1fcfa7f952c1d0754d2f",
+      "decision": "ACCEPT implementation within documented scope",
+      "material_findings_remaining": [],
+      "resolved_findings": [
+        "Routing package/description/submitted-prompt bindings",
+        "Capacity input/type/formula validation beyond cached outputs",
+        "Row property preservation",
+        "New run source snapshots; historical provenance limitations kept explicit"
+      ]
+    }
+  ],
+  "behavior": {
+    "original_v26": {
+      "run_id": "20261022T164736Z-baseline-v26-52b0cb29",
+      "skill_tree_sha256": "322dc96a80c7d85796885bad8e6c037604be594bfc91f883ad4a0beed1e747f6",
+      "condition": "with-skill",
+      "codex_version": "codex-cli 0.159.2",
+      "model_setting": "codex-default",
+      "status": "FAIL",
+      "passed": 43,
+      "total": 47,
+      "critical_pass": false,
+      "noncritical_pass_rate": 0.8462,
+      "source_report_sha256": "762cda68e410f634bb29e9cf2e94779196426513de4366bfe61d51c430689e1c",
+      "source_run_manifest_sha256": "50b454809e9b51556fe2df8db2f75a99f30dc92d15f833ccaeb37737b3f9511e",
+      "runner_source_sha256_at_execution": null,
+      "provenance_limit": "Legacy schema 1: prompts, staged package, responses and grading reverified by current report command; executing harness source was not snapshotted. Raw runs are intentionally excluded from git.",
+      "cases": [
+        {
+          "id": "authorized-recalculation-v1",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "68f24089d0de577e67b89b2d0bf69f5786ed935c5d64714eb343d475ec06d515",
+          "response_sha256": "3156d985afce0838f263b1502a77849dcec70d4cc0ef595560bf8d55bfd198da",
+          "failed_expectations": []
+        },
+        {
+          "id": "authorized-tracker-status-v1",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "3f8db12ec126291bfe610d292f6e8df5200f2ab3b705b45d58a29680e1a0c5b9",
+          "response_sha256": "e52c26849087a5e3001d431905377aaa85e246240da095d0dfb62cbb88b7eec7",
+          "failed_expectations": []
+        },
+        {
+          "id": "board-ready-preservation-v2",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "91742862be14f054cb29e99667abcb1f46fdb8598437d69e6c3875d31a0f5123",
+          "response_sha256": "b133d092ee1c69042c9f2d523aa80696d982133e85f29c6a47e267896553dfa0",
+          "failed_expectations": []
+        },
+        {
+          "id": "bounded-xlsm-edit",
+          "split": "development",
+          "passed": 3,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [
+            "All critical preservation and authority gates are explicitly addressed.",
+            "Independent reopening is specified, but target-application verification is not."
+          ],
+          "case_definition_sha256": "64265c70ccdc21a0e249d54764f0d44b4077944c7faaf75857e55041e084ae7d",
+          "response_sha256": "0cd146f1cad1fc4a1d21e6483705e3018bc5cf534d86005c3f6028977abade9f",
+          "failed_expectations": [
+            {
+              "id": "targeted-change",
+              "passed": false,
+              "evidence": "Limits the edit to Summary!B4 and specifies package, semantic, and visual comparisons, but does not explicitly require verification in the target application."
+            }
+          ]
+        },
+        {
+          "id": "diagnose-stale-formula-cache",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "4dc3d6930b7b5c9bc941be5113f44639bd3a2eee9bd5d6affaee218511ef9125",
+          "response_sha256": "c2bd34da6137dd6110203f63035dcbc5028af1a4beb4a2486e80680208ef9e8e",
+          "failed_expectations": []
+        },
+        {
+          "id": "diagnosis-not-repair-v2",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "ab13ff472a733ba9909d03a110a8adc81724e13daeedf0f71f138a1899298559",
+          "response_sha256": "0ef2d7e5d6123ac708d1539a3e2b076b89420e791fbf1719ea1613ee2e3950ca",
+          "failed_expectations": []
+        },
+        {
+          "id": "focused-capacity-report-v1",
+          "split": "development",
+          "passed": 3,
+          "total": 4,
+          "critical_pass": false,
+          "material_findings": [
+            "The weekly update verification plan omits the required input-change, expected-effect, restore, and final-readback sequence."
+          ],
+          "case_definition_sha256": "1faaab54d215a07e9c7584fe7f3ebbe9f7e15bf67c62c128a4cfd9810fb3e00e",
+          "response_sha256": "d2d43696050f7fa1b36b1e7d315bbab3380944a4a55d08cdecd56729ee154773",
+          "failed_expectations": [
+            {
+              "id": "live-update-proof",
+              "passed": false,
+              "evidence": "Specifies formula-driven measures and recalculation checks, but does not propose changing an input, verifying its expected effect, restoring final inputs, and reading back the restored state."
+            }
+          ]
+        },
+        {
+          "id": "formula-injection-export-v2",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "2cbc0e7c41440f7e9facb66c301862dc3a505cbe40ef8b49bf74cb4a1e292a5f",
+          "response_sha256": "71f471f8d3c55af94d01a9315c77d5938899f567682f94cfa3a71663f791daf2",
+          "failed_expectations": []
+        },
+        {
+          "id": "google-sheets-race-v2",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "88174472d99ad41c4b343f31f3d70bdd29a6e61a8adb60c06d912f1ce40743fa",
+          "response_sha256": "0224029902f4d521db64a51381282d1c4e022bda5ced37a0c6d04311ac0e1709",
+          "failed_expectations": []
+        },
+        {
+          "id": "independent-control-v1",
+          "split": "development",
+          "passed": 3,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [
+            "The negative-control plan omits restoration after deliberately introducing a discrepancy."
+          ],
+          "case_definition_sha256": "3ab812b7d87f996d3525b6691ddabec44d81ee3ce928e9f389f21e8fcb5edb5b",
+          "response_sha256": "0744a22acfefa4948cfb9d6351a4711088ca11bf9729fd83087f5d672655da72",
+          "failed_expectations": [
+            {
+              "id": "negative-control",
+              "passed": false,
+              "evidence": "Proposes introducing a known discrepancy in an isolated test copy and confirming detection, but does not specify restoring the correct state."
+            }
+          ]
+        },
+        {
+          "id": "large-transaction-feed",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "23a69a14ce600fb045a2bbe775fb5a5ae2d8748ac072002d49677eef30a64a71",
+          "response_sha256": "c2271f15e5aa77838208c75d6ed5f2699b289c8d480857c8ecaf743c99ea84d3",
+          "failed_expectations": []
+        },
+        {
+          "id": "monthly-fpa-model",
+          "split": "development",
+          "passed": 3,
+          "total": 4,
+          "critical_pass": false,
+          "material_findings": [
+            "The scenario plan lacks an explicitly defined authoritative active-scenario variable."
+          ],
+          "case_definition_sha256": "b20f8dbf21997a41b17c322f311a0612490f486fe4b0d9afd8f35d010139fc3d",
+          "response_sha256": "782ca494450f908d0196739dc16610d7d236a9e226d90eac56a5a7cc8d8675df",
+          "failed_expectations": [
+            {
+              "id": "scenario-authority",
+              "passed": false,
+              "evidence": "Specifies one authoritative scenario selector, output visibility, and visible failure for invalid selections, but does not explicitly define one authoritative active-scenario variable. General input validation does not fully establish this critical requirement."
+            }
+          ]
+        },
+        {
+          "id": "power-query-template",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "f33ca552ba827c2f3017dd868d0f325ad8948a156ff23688d79f151323a8e434",
+          "response_sha256": "4e329a1833082b12350f503f551d9c36e934bd216fcf1c04baa002b20bb470f1",
+          "failed_expectations": []
+        }
+      ]
+    },
+    "intermediate_v27": {
+      "run_id": "20261022T164732Z-candidate-v27-fac8d645",
+      "skill_tree_sha256": "5c4de6260278fa85e9929ea5bd5cbfe7c9aa87889213b972d05b315aff560a83",
+      "condition": "with-skill",
+      "codex_version": "codex-cli 0.159.2",
+      "model_setting": "codex-default",
+      "status": "PASS",
+      "passed": 63,
+      "total": 63,
+      "critical_pass": true,
+      "noncritical_pass_rate": 1.0,
+      "source_report_sha256": "84a296b6cde59c1b1fd49e48c955e465eac27da1d33d9f750a23ce83137a6250",
+      "source_run_manifest_sha256": "475dcd07c20d189b4c323c915c972f9b408469e20d77ee5e94a43db6cdbde7a4",
+      "runner_source_sha256_at_execution": null,
+      "provenance_limit": "Legacy schema 1: prompts, staged package, responses and grading reverified by current report command; executing harness source was not snapshotted. Raw runs are intentionally excluded from git.",
+      "cases": [
+        {
+          "id": "accessible-shared-dashboard",
+          "split": "held_out",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "8bce96745d71bdc935e601a623c84566622338fa4e6151f3fa3942f26383786f",
+          "response_sha256": "fb89f4883c5859cd5c570ea05d59b28b79fdc948193a48f4c63cc873211dc6b9",
+          "failed_expectations": []
+        },
+        {
+          "id": "authorized-recalculation-v1",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "68f24089d0de577e67b89b2d0bf69f5786ed935c5d64714eb343d475ec06d515",
+          "response_sha256": "96becb57edca388833e461ad4e44e94cb3bf3fdd96ab0699656f3ad02819711f",
+          "failed_expectations": []
+        },
+        {
+          "id": "authorized-tracker-status-v1",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "3f8db12ec126291bfe610d292f6e8df5200f2ab3b705b45d58a29680e1a0c5b9",
+          "response_sha256": "b42a7ca9f5e26006b53ec58ed5d57f5f9ef849edee2bea276fe7dd237bcc1484",
+          "failed_expectations": []
+        },
+        {
+          "id": "board-ready-preservation-v2",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "91742862be14f054cb29e99667abcb1f46fdb8598437d69e6c3875d31a0f5123",
+          "response_sha256": "432cbefdb46a306e7c176ca2101f929a03b256901fb289c80b3f76ed7de76b89",
+          "failed_expectations": []
+        },
+        {
+          "id": "bounded-xlsm-edit",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "64265c70ccdc21a0e249d54764f0d44b4077944c7faaf75857e55041e084ae7d",
+          "response_sha256": "2da3d0f3181ff130ffcba372ed018fd180b2a43e5e69cd0d4a78f5f9257a8efb",
+          "failed_expectations": []
+        },
+        {
+          "id": "diagnose-stale-formula-cache",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "4dc3d6930b7b5c9bc941be5113f44639bd3a2eee9bd5d6affaee218511ef9125",
+          "response_sha256": "2670284c582c51afca3e52d798c27fd9bf6c4d5b64832c37c29b19a9005155db",
+          "failed_expectations": []
+        },
+        {
+          "id": "diagnosis-not-repair-v2",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "ab13ff472a733ba9909d03a110a8adc81724e13daeedf0f71f138a1899298559",
+          "response_sha256": "e055be59bc74d6f60b627112cb63e215a52fd0e88f16289191f817586cc9871c",
+          "failed_expectations": []
+        },
+        {
+          "id": "focused-capacity-report-v1",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "1faaab54d215a07e9c7584fe7f3ebbe9f7e15bf67c62c128a4cfd9810fb3e00e",
+          "response_sha256": "12152490615b6fee234fd29d17c246d91c6c9e9f43168d63491e73120ec95755",
+          "failed_expectations": []
+        },
+        {
+          "id": "formula-injection-export-v2",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "2cbc0e7c41440f7e9facb66c301862dc3a505cbe40ef8b49bf74cb4a1e292a5f",
+          "response_sha256": "e008f14dae0bf0f7c172be0ba56532e9dcea46c3ce62779c2c2eec543e85fc8e",
+          "failed_expectations": []
+        },
+        {
+          "id": "google-sheets-race-v2",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "88174472d99ad41c4b343f31f3d70bdd29a6e61a8adb60c06d912f1ce40743fa",
+          "response_sha256": "1bd953cfc03cffd6814ffa4677bca6fddfe2bd06654f4f1ac6b32d95dc7e1f08",
+          "failed_expectations": []
+        },
+        {
+          "id": "independent-control-v1",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "3ab812b7d87f996d3525b6691ddabec44d81ee3ce928e9f389f21e8fcb5edb5b",
+          "response_sha256": "84d509f1b6b9c5db52c77f9e54e876fd969dec47ffd251162c796f8b38d77ae3",
+          "failed_expectations": []
+        },
+        {
+          "id": "large-transaction-feed",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "23a69a14ce600fb045a2bbe775fb5a5ae2d8748ac072002d49677eef30a64a71",
+          "response_sha256": "75c31c2a7704f0b62d63d99ffaf08b1c8733f57b39e991276611f5fab969cbd3",
+          "failed_expectations": []
+        },
+        {
+          "id": "monthly-fpa-model",
+          "split": "development",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "b20f8dbf21997a41b17c322f311a0612490f486fe4b0d9afd8f35d010139fc3d",
+          "response_sha256": "9d9a4c8d77abd00469afc449bff2c23e24c1464a39f282cfb1410e15bd6552b7",
+          "failed_expectations": []
+        },
+        {
+          "id": "power-query-template",
+          "split": "development",
+          "passed": 3,
+          "total": 3,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "f33ca552ba827c2f3017dd868d0f325ad8948a156ff23688d79f151323a8e434",
+          "response_sha256": "af60bbcf745dd0ad20bbb6b5cb294a27eab9fc17abd9c0b86f10a9f5266e1778",
+          "failed_expectations": []
+        },
+        {
+          "id": "privacy-cleanup-delivery",
+          "split": "held_out",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "6c05e6f67e77d5d9704788cccf81567e4e1590d5e5d3171cdf932a1301088118",
+          "response_sha256": "296fc2883dc3894e853a817a6c716aeea2de47b0f36fb08a92f9688288bf1c6e",
+          "failed_expectations": []
+        },
+        {
+          "id": "surgical-table-extension",
+          "split": "held_out",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "0b6fe619be7db37944b8b0099a315483d9e7c731f4e5f99c7d985f08ba162a75",
+          "response_sha256": "bf71105ccce00aea33446f0cde642903adb4375d927dc1cb16f71ebc3cb8d9b4",
+          "failed_expectations": []
+        },
+        {
+          "id": "volatile-recalc-proof",
+          "split": "held_out",
+          "passed": 4,
+          "total": 4,
+          "critical_pass": true,
+          "material_findings": [],
+          "case_definition_sha256": "a3cdb9fc3dd329a28d12d00846fa99a21a2a8a4036792879f679ea7f20b5a99c",
+          "response_sha256": "bcc8409e442b1f192ecbcca10c6b001fbbc2e14227f3a41b1be3583f7a7f7e73",
+          "failed_expectations": []
+        }
+      ]
+    },
+    "final_v29": {
+      "status": "BLOCKED",
+      "passed": null,
+      "total_expectations_planned": 66,
+      "cases_planned": 18,
+      "reason": "Automatic approval review rejected the escalated authenticated Codex CLI rerun because it writes protected session state. The companion baseline was stopped. No partial run is counted.",
+      "score_transfer_from_v27": false
+    }
+  },
+  "routing": {
+    "status": "HISTORICAL_OBSERVATION_ONLY",
+    "run_id": "20261022T171336Z-triggers-4642bc85",
+    "skill_tree_sha256_recorded": "5c4de6260278fa85e9929ea5bd5cbfe7c9aa87889213b972d05b315aff560a83",
+    "description_sha256": "7be052291f0892198f798a28ee35dc93a3a2ca345bc1bc313a1d863d8547247e",
+    "passed": 60,
+    "total": 60,
+    "recall": 1.0,
+    "specificity": 1.0,
+    "exclusion_false_positives": 0,
+    "source_report_sha256": "718a1a2c86b9bcaa5390e01ec67a4ea5178cdd54ccfa425c59cfc16d9073cf39",
+    "limitation": "Predates the stricter package/core/runner binding format. The current verifier cannot fully qualify this legacy result; it is not a v29 gate despite the unchanged description."
+  },
+  "blind_comparison": {
+    "status": "INCOMPLETE",
+    "run_id": "20261022T171400Z-blind-comparison-776548a1",
+    "overall_score": null,
+    "development_observation": "The completed board-report comparison trials yielded two regression votes and one tie. Those observations prompted explicit final-export reconciliation and task-language reporting requirements. The interrupted comparison is not an accepted regression gate."
+  },
+  "runtime_qualification_record": "artifact-v29.json",
+  "forward_task_record": "forward-capacity-v27.json",
+  "limitations": [
+    "Behavior scores measure response decisions and plans, not workbook execution.",
+    "Model and reviewer judgments are automated and are not human acceptance.",
+    "One completed sample per behavior case does not establish statistical certainty or broad generalization.",
+    "Final v29 content includes changes after the completed v27 evaluations; no v29 performance score is claimed.",
+    "Curated records retain result and source hashes; full local model logs, images and workbooks are not committed."
+  ]
+}

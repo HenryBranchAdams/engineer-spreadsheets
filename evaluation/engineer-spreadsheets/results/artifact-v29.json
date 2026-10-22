@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "record_type": "curated_runtime_qualification",
+  "run_id": "artifact-v29",
+  "raw_evidence_sha256": "10868c58a1a2a17bac397554645bd8e13de39fa392062526cfc090ebfb276a66",
+  "skill_tree_sha256": "075f9881a19e03520c6188d79a9bf1510986fbafcf6f1fcfa7f952c1d0754d2f",
+  "source_sha256": {
+    "run.py": "5760ce075f76d552b799d435e2eb6e6bbf5daf076a9518e27deb7b725b801690",
+    "build.mjs": "2d302307f4b8ad5d06eb871c67ae005854eda7c70f25a30aa15340d6d76e3f85",
+    "inputs.json": "f9080ffeccb41fd6ec8b63be4c0ee8aaedf8c6bba973e3f8bc07cc378f8d6083"
+  },
+  "engines": {
+    "artifact_tool": "2.8.99"
+  },
+  "qualification_status": "FAIL",
+  "evidence_integrity": "PASS",
+  "counts": {
+    "PASS": 10,
+    "FAIL": 3,
+    "BLOCKED": 1
+  },
+  "scope": "Typed OOXML, capacity input perturbations, bounded no-op/narrow-edit preservation, rendered PNGs. Not agent efficacy or native Excel qualification.",
+  "checks": [
+    {
+      "id": "no-op-preservation",
+      "status": "PASS",
+      "detail": {
+        "permitted_changed_cells": [],
+        "preserved_package_members": 11,
+        "verified_feature_parts": [
+          "xl/styles.xml",
+          "xl/tables/table1.xml",
+          "_rels/.rels",
+          "xl/_rels/workbook.xml.rels",
+          "xl/worksheets/_rels/sheet1.xml.rels"
+        ]
+      }
+    },
+    {
+      "id": "typed-literals",
+      "status": "PASS",
+      "detail": {
+        "records": 4,
+        "total": 1007.875,
+        "formula_errors": []
+      }
+    },
+    {
+      "id": "narrow-edit-values",
+      "status": "PASS",
+      "detail": {
+        "records": 4,
+        "total": 1032.875,
+        "formula_errors": []
+      }
+    },
+    {
+      "id": "narrow-edit-preservation",
+      "status": "PASS",
+      "detail": {
+        "permitted_changed_cells": [
+          "Records!B6",
+          "Records!B10"
+        ],
+        "preserved_package_members": 11,
+        "verified_feature_parts": [
+          "xl/styles.xml",
+          "xl/tables/table1.xml",
+          "_rels/.rels",
+          "xl/_rels/workbook.xml.rels",
+          "xl/worksheets/_rels/sheet1.xml.rels"
+        ]
+      }
+    },
+    {
+      "id": "solid-fill-no-op-probe",
+      "status": "FAIL",
+      "detail": "AssertionError: preserved xl/styles.xml: semantic XML changed"
+    },
+    {
+      "id": "capacity-base",
+      "status": "PASS",
+      "detail": {
+        "state": "base",
+        "people": 4,
+        "minutes": 4800,
+        "actuals_unchanged": true,
+        "inputs_and_formulas_verified": true
+      }
+    },
+    {
+      "id": "capacity-peak",
+      "status": "PASS",
+      "detail": {
+        "state": "peak",
+        "people": 5,
+        "minutes": 6800,
+        "actuals_unchanged": true,
+        "inputs_and_formulas_verified": true
+      }
+    },
+    {
+      "id": "capacity-zero",
+      "status": "PASS",
+      "detail": {
+        "state": "zero",
+        "people": 0,
+        "minutes": 0,
+        "actuals_unchanged": true,
+        "inputs_and_formulas_verified": true
+      }
+    },
+    {
+      "id": "capacity-missing-unselected",
+      "status": "PASS",
+      "detail": {
+        "state": "missing-unselected",
+        "people": 4,
+        "minutes": 4800,
+        "actuals_unchanged": true,
+        "inputs_and_formulas_verified": true
+      }
+    },
+    {
+      "id": "capacity-missing-selected",
+      "status": "PASS",
+      "detail": {
+        "state": "missing-selected",
+        "people": "Missing volume",
+        "minutes": "Missing volume",
+        "actuals_unchanged": true,
+        "inputs_and_formulas_verified": true
+      }
+    },
+    {
+      "id": "zero-empty-string-probe",
+      "status": "FAIL",
+      "detail": "AssertionError: zero B3: expected 0, observed 'Missing volume'"
+    },
+    {
+      "id": "rendered-previews",
+      "status": "PASS",
+      "detail": {
+        "typed-records.png": [
+          1437,
+          558
+        ],
+        "roundtrip.png": [
+          1437,
+          558
+        ],
+        "edit.png": [
+          1437,
+          558
+        ],
+        "capacity-base.png": [
+          1019,
+          852
+        ],
+        "capacity-missing-selected.png": [
+          1019,
+          852
+        ],
+        "cf-probe.png": [
+          1437,
+          558
+        ],
+        "cf-probe-roundtrip.png": [
+          1437,
+          558
+        ]
+      }
+    },
+    {
+      "id": "visual-review",
+      "status": "FAIL",
+      "detail": "Recorded visual inspection; see hash-bound visual-review.json. This is reviewer evidence, not an automated aesthetic score."
+    },
+    {
+      "id": "libreoffice-read-back",
+      "status": "BLOCKED",
+      "detail": "LibreOffice was explicitly skipped; no destination qualification is claimed."
+    }
+  ],
+  "visual_review": {
+    "reviewer": "GPT-6 Astra Pro assistant visual inspection",
+    "observations": "Inspected all seven PNGs at readable zoom. Record layouts, dates, boolean states, literal notes and totals are readable; the narrow edit changes 0.000 to 25.000 and the total from 1,007.875 to 1,032.875. The five record previews lose leading zeros and display long exact text IDs in scientific notation, although OOXML inspection preserves their literal text. Both capacity previews are readable with units and visible inputs; the missing selected scenario shows Missing volume. The solid-fill probe still looks pink in this renderer, but package inspection separately detects loss of its solid pattern type after roundtrip. Visual acceptance fails because the record identifiers are displayed inaccurately.",
+    "verdict": "FAIL",
+    "recorded_at": "2026-10-22T17:25:23.197352+00:00",
+    "prior_evidence_sha256": "ff041f5879c0ed156f10e7a60ff61a10143dc92bb2b4ff410feafc89648ad645",
+    "images": {
+      "capacity-base.png": "7d3b99525dfbf4c6c87528d08ba396b97908f3118dfe20bdbf4a95f74750eb5e",
+      "capacity-missing-selected.png": "c96b827e033a652c4ccdf16e13f632db4aba00f57654dd4c8bde16dd2beff359",
+      "cf-probe-roundtrip.png": "1d8bb1a7139b22dd9da8bd7391223c32fb31254bee9a7b3c244aef81707c15b6",
+      "cf-probe.png": "1d8bb1a7139b22dd9da8bd7391223c32fb31254bee9a7b3c244aef81707c15b6",
+      "edit.png": "674c4e14f37d424b2de42074a60355cf88a500eed8235831b9e1243ff4d145c3",
+      "roundtrip.png": "e6d7b200a902dd94bbc31bab3c7a75052c5c62d80d4509ce97d221028008eaac",
+      "typed-records.png": "e6d7b200a902dd94bbc31bab3c7a75052c5c62d80d4509ce97d221028008eaac"
+    }
+  },
+  "artifact_sha256": {
+    "capacity-base.png": "7d3b99525dfbf4c6c87528d08ba396b97908f3118dfe20bdbf4a95f74750eb5e",
+    "capacity-base.xlsx": "5038aa97347ec6fa57f68311e68d57e92b3659f03898c5ceb0fba7d5b9b53ad3",
+    "capacity-base.xlsx.inspect.ndjson": "1c84f1c8b0e6e84966d039b67a45eb9a428127dd689d9d10a0e42a65c0ce6d6c",
+    "capacity-missing-selected.png": "c96b827e033a652c4ccdf16e13f632db4aba00f57654dd4c8bde16dd2beff359",
+    "capacity-missing-selected.xlsx": "6f2c9e50f1b8862b842bc2b2052f927ab91adb30e950acb365600d63c3dd3dae",
+    "capacity-missing-selected.xlsx.inspect.ndjson": "f1df4f07c17e5994ed1f1033347ac8a15823835df31b797dbb1295816a997657",
+    "capacity-missing-unselected.xlsx": "66a9df141cb5952b5c83fbbf945ec5a817cbab2883280d063a5a51fb155f96d8",
+    "capacity-missing-unselected.xlsx.inspect.ndjson": "20bc5c486611aaa39f0f76101705e55ada395dba18c26240a38c3991f8bc1ccb",
+    "capacity-peak.xlsx": "8f98f4b264127554b1a2dcf0ac91b98031f4f2e1bd554fcce65f0b7d882b42f1",
+    "capacity-peak.xlsx.inspect.ndjson": "ee26c7f0a5c495badd7d844bb3e2a9fb4542a074695d88e3a09055cfad7e2f2d",
+    "capacity-zero-empty-string-probe.xlsx": "0fa1df8f68995205008978d94060518cc1b544db2230e3067dd26707bf220821",
+    "capacity-zero-empty-string-probe.xlsx.inspect.ndjson": "ed399b56d624fa161f366e5caf2850867fbbd8eaabc25b10043094942d67cbc3",
+    "capacity-zero.xlsx": "9b25a06672b8a9db253c7c596efdb23eac0a66d8331ee9a6cd16b1c935f9945e",
+    "capacity-zero.xlsx.inspect.ndjson": "335587713a270bd9932d4483c67a41242c13240e0e6c7eefbc74d508209230f0",
+    "cf-probe-roundtrip.png": "1d8bb1a7139b22dd9da8bd7391223c32fb31254bee9a7b3c244aef81707c15b6",
+    "cf-probe-roundtrip.xlsx": "a061877ac334b33bf44568f31b72b7b5b88e11ad6a0cb39648557610fa2d906f",
+    "cf-probe-roundtrip.xlsx.inspect.ndjson": "99ca3b41bfbe1ffb70bbce453aa5c30b1c4b5abea47089a8e1712c4a4301b4a1",
+    "cf-probe.png": "1d8bb1a7139b22dd9da8bd7391223c32fb31254bee9a7b3c244aef81707c15b6",
+    "cf-probe.xlsx": "7790254947c5ff78f89eadda044ef10b1c6680d9678f4e72f087df62ecf7da72",
+    "cf-probe.xlsx.inspect.ndjson": "bf955b159c8e2f51a86232d61095c1a010e1d58a9c07c04703a2b772cb6891d8",
+    "edit.png": "674c4e14f37d424b2de42074a60355cf88a500eed8235831b9e1243ff4d145c3",
+    "edit.xlsx": "50bc673f389fe097820e6154b99ffa1eff441709a8527677dd4378c0f28a1d27",
+    "edit.xlsx.inspect.ndjson": "f26c247e3164e595a0ae0534c14c04fa9fce823035cb2aa61e1d27ff6ce60c65",
+    "roundtrip.png": "e6d7b200a902dd94bbc31bab3c7a75052c5c62d80d4509ce97d221028008eaac",
+    "roundtrip.xlsx": "ac63c95680c04850f1aa2ec9dbe710b2169ff8882e096f011380dfaf7c8fdb42",
+    "roundtrip.xlsx.inspect.ndjson": "56bff7952569ffb67c4110668bf2e486c7494f83eda16a41eaee3ef255304edd",
+    "runtime-observations.json": "9ea75d1faef6a83b0efe1d3a73be9d11ffa5d8329528c1b2a6d93255fb0e06e8",
+    "typed-records.png": "e6d7b200a902dd94bbc31bab3c7a75052c5c62d80d4509ce97d221028008eaac",
+    "typed-records.xlsx": "68c8af0a4ce07df2b87da015f3d1d448408c37e0c0b645f3a73b39c3588c2627",
+    "typed-records.xlsx.inspect.ndjson": "5514f2b126972f4b4df9c1951ca74f739ac52b23b86007fb8c6dfb028168c01f",
+    "visual-review.json": "ea13f1321b32574b11c965e458c38d3e2a4541535e447d2fb93343496e746788"
+  },
+  "limitations": [
+    "LibreOffice open/save/read-back is not evidence of calculateAll or native Excel behavior.",
+    "Font-only conditional formatting and the solid-fill probe have separate gates. Do not infer preservation of a failing fill from a passing font-only case.",
+    "Preservation is qualified only for features present in these fixtures; macros, pivots, signatures and external connections are outside scope.",
+    "Scripted fixture success does not measure a model's ability to use the skill.",
+    "All seven PNGs were inspected by the assistant. This is automated reviewer evidence, not human acceptance.",
+    "Native Excel was not available. Earlier LibreOffice attempts were killed or did not complete; the final run explicitly skipped that engine."
+  ]
+}

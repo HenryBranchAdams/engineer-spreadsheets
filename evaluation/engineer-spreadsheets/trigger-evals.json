@@ -8,20 +8,20 @@
     {"id":"t04","split":"development","should_trigger":true,"query":"Clean this CSV for Excel without stripping leading zeros or turning customer text into formulas."},
     {"id":"t05","split":"development","should_trigger":true,"query":"Our live Google Sheet needs a validated status column and chart; inspect it first and update only that file."},
     {"id":"t06","split":"development","should_trigger":true,"query":"The workbook opens but LibreOffice shows zero for formula cells. Check caches and recalculation state."},
-    {"id":"t07","split":"development","should_trigger":false,"query":"Write a Python service that stores tabular transaction data in Postgres and exposes a REST API. Excel is not a deliverable."},
-    {"id":"t08","split":"development","should_trigger":false,"query":"Create a responsive React data grid for our web dashboard using the CSV endpoint."},
-    {"id":"t09","split":"development","should_trigger":false,"query":"Explain the mathematical definition of IRR with a small inline example; there is no workbook."},
-    {"id":"t10","split":"development","should_trigger":false,"query":"Turn this table from a Word document into accessible HTML."},
-    {"id":"t11","split":"development","should_trigger":false,"query":"Design a database schema for a finance application that may export xlsx files later."},
-    {"id":"t12","split":"development","should_trigger":false,"query":"Make a static PNG chart from this JSON for a presentation; no spreadsheet output is needed."},
+    {"id":"t07","split":"development","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Write a Python service that stores tabular transaction data in Postgres and exposes a REST API. Excel is not a deliverable."},
+    {"id":"t08","split":"development","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Create a responsive React data grid for our web dashboard using the CSV endpoint."},
+    {"id":"t09","split":"development","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Explain the mathematical definition of IRR with a small inline example; there is no workbook."},
+    {"id":"t10","split":"development","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Turn this table from a Word document into accessible HTML."},
+    {"id":"t11","split":"development","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Design a database schema for a finance application that may export xlsx files later."},
+    {"id":"t12","split":"development","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Make a static PNG chart from this JSON for a presentation; no spreadsheet output is needed."},
     {"id":"t13","split":"held_out","should_trigger":true,"query":"cash stops rolling after june in Forecast.xlsm — find the broken precedent and tell me why, no fixes yet"},
     {"id":"t14","split":"held_out","should_trigger":true,"query":"Convert our ODS planning model to XLSX, identify anything Excel will lose, and verify it in Excel."},
     {"id":"t15","split":"held_out","should_trigger":true,"query":"Pick the right structure for a growing transaction feed versus a fixed five-year forecast inside this workbook."},
     {"id":"t16","split":"held_out","should_trigger":true,"query":"Audit the hidden names, comments, links, connections, and embedded code before we send this spreadsheet externally."},
-    {"id":"t17","split":"held_out","should_trigger":false,"query":"Use pandas to analyze this Parquet dataset and return a Markdown memo; do not create a spreadsheet."},
-    {"id":"t18","split":"held_out","should_trigger":false,"query":"Create SQL views that reproduce the business logic currently documented in an Excel file; the deliverable is migration SQL."},
-    {"id":"t19","split":"held_out","should_trigger":false,"query":"Draft a policy document describing who may approve financial models."},
-    {"id":"t20","split":"held_out","should_trigger":false,"query":"Build a web-based spreadsheet clone with React and a formula parser."}
+    {"id":"t17","split":"held_out","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Use pandas to analyze this Parquet dataset and return a Markdown memo; do not create a spreadsheet."},
+    {"id":"t18","split":"held_out","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Create SQL views that reproduce the business logic currently documented in an Excel file; the deliverable is migration SQL."},
+    {"id":"t19","split":"held_out","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Draft a policy document describing who may approve financial models."},
+    {"id":"t20","split":"held_out","should_trigger":false,"exclusion_precedence":true,"version":2,"query":"Build a web-based spreadsheet clone with React and a formula parser."}
   ]
 }
 

@@ -23,6 +23,14 @@ Treat a workbook as an executable, collaborative document. Correctness includes 
 
 Do not edit merely because a workbook is available. Do not repair when the user requested diagnosis only.
 
+## Scale the work to the task
+
+Start with the user's question and the smallest useful workbook or edit. For a focused report or tracker, put the answer above its supporting detail on one sheet; add sheets only for a distinct source, calculation, audience, or workflow. Roles such as inputs, calculations, and checks do not each require a tab. Preserve an established layout during narrow edits.
+
+Before implementation, identify the observable success conditions: the requested result, how it should respond to edits, and what must remain unchanged. For example, a category report must reconcile to source transactions, preserve exact account IDs, and update its total when a new record is added. Use these conditions to choose checks; do not add generic controls, scenarios, documentation tabs, or approval procedures with no task-specific purpose.
+
+Proceed using existing session authorization and safe, reversible implementation choices. Ask only for unresolved business meaning, an essential missing input, or a consequential action outside that authority. Read only the references applicable to the work; a small task does not need every verification tier.
+
 ## Establish the contract
 
 Before mutation, resolve or safely infer:
@@ -35,11 +43,11 @@ Before mutation, resolve or safely infer:
 
 Scale controls, review, release evidence, and polish to this profile; do not invent an organizational rating.
 
-For shared or live spreadsheets, do not invent permitted status values, workflow taxonomies, scenario definitions, chart meaning, or other business semantics. You may propose a default, but require confirmation before mutation.
+For shared or live spreadsheets, derive status values, workflow taxonomies, scenarios, and chart meaning from the request or authoritative existing content. Ask before inventing material business semantics; do not re-confirm values or changes the user has already authorized.
 
-For every shared or live mutation, identify the exact spreadsheet and, when targeting existing content, the stable sheet ID plus target table or range. For creation, bind the stable parent spreadsheet and intended new object, then capture the sheet or object ID returned or discovered after creation instead of assuming it is client-assignable. Prefer one designated mutation owner and a brief edit window; otherwise use narrow conflict-aware read/compare/write and abort on a changed target. Treat a multi-operation write as atomic only when the active runtime advertises the platform's genuine atomic contract; a batch-shaped connector call is not proof. Make preservation postconditions explicit: existing row alignment and unrelated formulas, formatting, and objects must remain unchanged. Fresh verification must cover formulas, literal and unformatted values, calculated results and formula errors, dimensions, validation, formatting, object identity, source, labels, placement, and rendered overlap; independently validate pasted and preexisting values because validation rules can be bypassed.
+For shared or live mutations, bind the exact spreadsheet, stable sheet/object identity, and target range. Use one mutation owner or conflict-aware read/compare/write; abort on a changed target. Preserve row alignment and unrelated content, and verify actual values, formulas, results, and object state after writing. Read the connected-surface procedure in [format-security.md](references/format-security.md) before live mutations, including object creation and unknown-outcome recovery.
 
-Treat recalculation as authorized when needed to verify an explicitly requested create or edit, but disable macros and block external updates. For file work, calculate a candidate copy and preserve the source unless in-place editing is explicit; for connected work, use only the active runtime's advertised calculation and read-back behavior and do not save, export, or duplicate unless requested and supported. Immediately before recalculation, stop and ask when it could run custom code, refresh data, materially change volatile outputs, or affect the source; do not treat an earlier general request as that authorization.
+Treat ordinary recalculation as authorized when needed to verify an explicitly requested create or edit, with macros disabled and external updates blocked. Calculate a candidate copy for file work; preserve the source unless in-place editing is explicit. For connected work, use advertised calculation and read-back behavior without an unrequested save, export, or duplicate. Immediately before calculation, check whether it could execute custom code, refresh data, materially change volatile outputs, or affect an otherwise protected source. Proceed only with specific authority for each applicable consequence; reuse that authority when already established, and ask when it is missing. A general verification request alone does not authorize those consequences.
 
 ## Inventory before editing
 
@@ -79,7 +87,7 @@ For new or materially reworked workbooks:
 1. Define source grain, keys, units, time axis, scenarios, and authoritative totals.
 2. Separate raw data, assumptions, calculations, outputs, and checks when complexity warrants it. Keep one source of truth for each input.
 3. Separate working logic, formal presentation, and accessible reuse when their needs conflict; do not force one region to serve incompatible audiences.
-4. Make the main user path obvious. For complex workbooks, add a concise Overview with purpose, owner, as-of date, audience, sources, units, date basis, refresh procedure, calculation mode, compatibility target, assumptions, and limitations.
+4. Make the main user path obvious: the answer, editable inputs, and next update step. For complex workbooks, provide concise operating context with purpose, owner when known, as-of date, sources, units, date basis, refresh procedure, calculation mode, compatibility target, assumptions, and limitations. Use a separate Overview only when nearby notes are insufficient.
 5. Put assumptions and mapping rules in visible labeled cells or tables; reference them instead of embedding magic numbers.
 6. Add visible controls near the tested logic. Every material check shows purpose, expected, actual, tolerance, action, and a binary final result: PASS or FAIL. Keep advisory or raw states in a separate field; map `WARN`, `NOT RUN`, blank, or indeterminate to final FAIL unless the item is demonstrably non-material or an authorized, evidenced exception applies. A master check must not mask failures.
 7. Keep transformations reproducible through one canonical builder or mutation path.
@@ -106,7 +114,7 @@ Read [data-integrity.md](references/data-integrity.md) completely when importing
 - Do not use `IFERROR` or blank strings to hide defects. Use fallbacks only when they express the business rule, and expose unexpected errors.
 - Preserve full calculation precision unless a rule requires rounding; reconcile displayed rounded totals when needed.
 - Treat spills, legacy arrays, data tables, circular references, custom functions, cube formulas, external links, and volatile formulas as compatibility-sensitive.
-- Comment complex formulas and key assumptions. Put source identifiers or URLs beside researched hardcodes.
+- Explain complex formulas and key assumptions beside the logic, or with the runtime's supported durable annotations. Put source identifiers or URLs beside researched hardcodes; preserve existing annotation conventions.
 
 ## Make preservation-first edits
 
@@ -126,7 +134,7 @@ Read [data-integrity.md](references/data-integrity.md) completely when importing
 - Keep data rectangular with one header row when practical. Avoid merges, blank separators, and nested tables in data regions.
 - Use meaningful sheet names, useful content in A1, filters and frozen context where helpful, unclipped dimensions, explicit units, and accessible labels or alt text where supported.
 - Use charts only to clarify a question. Verify source ranges, series, labels, units, periods, placement, and rendered output.
-- Configure print layout when printing or PDF output is part of the contract.
+- Configure print layout when printing or PDF output is part of the contract; reconcile material exported figures and their period/scenario to the final verified workbook values.
 - Treat PDF or image review as visual evidence only; prove formulas, data, hidden content, and calculation state from the workbook or live surface.
 
 Read [formatting-print.md](references/formatting-print.md) completely for professional creation or restyling; editable-input, scenario, Table-versus-range, name, or annotation design; formal, shared, accessible, executive, print, or PDF outputs; or controlled or issued workbooks.
@@ -158,11 +166,13 @@ Apply the active runtime's required inspection, formula-error scan, rendering, a
 
 ### Tier 2 — formula models and material analysis
 
-- Immediately before any calculation step, stop for explicit authorization if recalculation could execute code or custom functions, refresh external data, materially change volatile outputs, or affect the source. When volatile outputs can change materially, put a distinct stop/go checkpoint directly before the recalculation command and name that consequence; permissions for code, refresh, or a general verification request do not substitute for it. Keep each risky capability blocked until specifically authorized.
+- Apply the recalculation authority check immediately before calculation. Keep each risky capability blocked until its consequence is specifically authorized; do not ask twice for unchanged, explicitly authorized scope.
 - Use a compatible engine's documented calculation behavior. For files, save and reopen the candidate in a fresh process. For connected or native surfaces, freshly read formulas, unformatted results, settings, and objects; never save or export unless requested and advertised.
-- Independently recompute the most important outputs outside their own formula chain.
-- Test relevant zero, blank, negative, duplicate, missing-match, boundary-date, and large-value cases.
+- Independently recompute important outputs from authoritative inputs, using a method that does not merely repeat the workbook's logic. A check comparing two links to the same result cannot detect a wrong result.
+- Exercise user-updatable logic on a disposable candidate: change a representative input, recalculate, and verify expected downstream changes and unaffected results. Test applicable zero, blank, negative, duplicate, missing-match, boundary-date, and large-value cases. Include structural tests on disposable file candidates when needed for the requested update workflow. Restore the intended final inputs and verify again. Do not perturb the original file or a shared/live workbook outside the specifically authorized scope.
 - Record unsupported functions, macros, external dependencies, volatile outputs, iteration settings, stale caches, and tolerance assumptions.
+
+Read [testing-and-evidence.md](references/testing-and-evidence.md) for interactive models, material formula edits, growing datasets, or a requested verification/evaluation workflow. It defines independent expected results, behavioral checks, and evidence that survives export.
 
 ### Tier 3 — existing, converted, complex, or sensitive workbooks
 
@@ -184,6 +194,6 @@ Deliver one canonical final workbook unless variants were requested. Follow the 
 - checks passed, skipped, or blocked and any compatibility limitation;
 - whether the result is saved, recalculated, visually verified, destination-verified, or only prepared for a later live step.
 
-Workbook cells and selectors may calculate or request only non-authoritative workflow states such as `Draft`, `Blocked`, or `Ready for Review`. Do not let free-form inputs or formulas assign `Reviewed`, `Approved`, `Issued`, `Final`, or an equivalent business status; those require an authorized external transition with evidence. Do not silently issue a workbook with unresolved substantive failures; disclose accepted exceptions and their owner.
+For controlled releases, workbook cells and selectors may calculate or request only non-authoritative workflow states such as `Draft`, `Blocked`, or `Ready for Review`. Do not let free-form inputs or formulas assign `Reviewed`, `Approved`, `Issued`, `Final`, or an equivalent business status; those require an authorized external transition with evidence. This release rule does not prohibit ordinary user-authorized status fields in a task tracker. Do not silently issue a workbook with unresolved substantive failures; disclose accepted exceptions and their owner.
 
-Do not mention support scripts or previews unless asked. Do not claim publication, upload, refresh, protection, or live collaboration beyond evidence.
+Explain verification in task-specific terms rather than referring only to internal tier numbers. Do not mention support scripts or previews unless asked. Do not claim publication, upload, refresh, protection, or live collaboration beyond evidence.

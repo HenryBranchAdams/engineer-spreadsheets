@@ -1,4 +1,6 @@
 .DS_Store
+__pycache__/
+*.pyc
 evaluation/engineer-spreadsheets/runs/
 evaluation/engineer-spreadsheets/snapshots/
 evaluation/engineer-spreadsheets/tmp/
